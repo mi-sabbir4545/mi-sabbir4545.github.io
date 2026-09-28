@@ -6,10 +6,9 @@
  * ─────────────────────────────────────────────────────────────
  */
 window.PORTFOLIO = {
+  greeting: "Hi, I'm",
   name: "Moinul Islam",
-  handle: "moinul",
   role: "QA Automation & Security Testing Engineer",
-  whoami: "qa automation · security testing · ai-assisted testing",
   tagline:
     "I break web, mobile and API products before users do — with automation frameworks, " +
     "an attacker's mindset and AI-assisted testing.",

@@ -9,8 +9,6 @@
   var D = window.PORTFOLIO;
   if (!D) return;
 
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   // ---------- tiny DOM helper ----------
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
@@ -38,6 +36,7 @@
   }
 
   // ---------- hero ----------
+  byId("hero-greeting").textContent = D.greeting;
   byId("hero-name").textContent = D.name;
   byId("hero-role").textContent = D.role;
   byId("hero-tagline").textContent = D.tagline;
@@ -50,26 +49,6 @@
       el("dd", { class: "stat-value", text: s.value }),
     ]);
   }));
-
-  // $ whoami typing effect (instant when reduced motion is preferred)
-  var typed = byId("typed");
-  var out = byId("whoami-out");
-  var cmd = "whoami";
-  out.textContent = D.handle + " — " + D.whoami; // text is in place early (no layout shift), revealed after typing
-  if (reduceMotion) {
-    typed.textContent = cmd;
-    out.classList.add("show");
-  } else {
-    typed.textContent = "";
-    var i = 0;
-    var timer = setInterval(function () {
-      typed.textContent = cmd.slice(0, ++i);
-      if (i >= cmd.length) {
-        clearInterval(timer);
-        setTimeout(function () { out.classList.add("show"); }, 250);
-      }
-    }, 110);
-  }
 
   // ---------- about ----------
   fill("about-text", D.about.map(function (p) { return el("p", { text: p }); }));
@@ -98,7 +77,7 @@
           el("h3", { class: "job-role", text: job.role }),
           el("p", { class: "job-company", text: job.company }),
         ]),
-        el("p", { class: "job-period mono", text: job.period }),
+        el("p", { class: "job-period", text: job.period }),
       ]),
       el("ul", { class: "job-points" }, job.points.map(function (p) { return el("li", { text: p }); })),
       el("ul", { class: "chips chips-sm", "aria-label": "Tools used" }, job.tags.map(chip)),
@@ -111,7 +90,7 @@
       ? el("p", { class: "card-link" }, [externalLink(p.link.url, p.link.label + " →")])
       : null;
     return el("article", { class: "card" }, [
-      el("p", { class: "card-kind mono", text: p.kind }),
+      el("p", { class: "card-kind", text: p.kind }),
       el("h3", { text: p.title }),
       el("p", { class: "card-summary", text: p.summary }),
       el("ul", { class: "card-points" }, p.points.map(function (t) { return el("li", { text: t }); })),
@@ -124,14 +103,14 @@
   byId("security-intro").textContent = D.security.intro;
   fill("security-now", D.security.now.map(function (s) {
     return el("article", { class: "card card-compact" }, [
-      el("p", { class: "status mono", text: s.status }),
+      el("p", { class: "status", text: s.status }),
       el("h3", { text: s.title }),
       el("p", { class: "card-summary", text: s.detail }),
     ]);
   }));
   fill("roadmap", D.security.roadmap.map(function (r, idx) {
     return el("li", { class: "road-step" }, [
-      el("span", { class: "road-num mono", text: String(idx + 1).padStart(2, "0") }),
+      el("span", { class: "road-num", text: String(idx + 1).padStart(2, "0") }),
       el("div", null, [el("h4", { text: r.step }), el("p", { text: r.note })]),
     ]);
   }));
@@ -162,7 +141,7 @@
     toggle.setAttribute("aria-pressed", String(isLight));
     toggle.setAttribute("aria-label", isLight ? "Switch to dark theme" : "Switch to light theme");
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", isLight ? "#f7f9fb" : "#0b0f14");
+    if (meta) meta.setAttribute("content", isLight ? "#f4efe6" : "#161412");
   }
   toggle.addEventListener("click", function () {
     var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
