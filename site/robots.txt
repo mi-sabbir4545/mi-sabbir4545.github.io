@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mi-sabbir4545.github.io/sitemap.xml
+Sitemap: https://moinulislam.pages.dev/sitemap.xml
