@@ -26,38 +26,40 @@ window.PORTFOLIO = {
     { value: "2021", label: "Testing professionally since" },
     { value: "110+", label: "Mailchimp partner apps reviewed" },
     { value: "3", label: "Companies" },
-    { value: "7", label: "Business domains" },
+    { value: "11", label: "Business domains" },
   ],
 
   about: [
-    "I'm a QA Automation Engineer with nearly six years of experience testing web, mobile (iOS/Android) and API products " +
-      "for HRMS, e-commerce, logistics and SaaS companies. I've built a UI automation framework from scratch, set up QA " +
-      "processes for product teams, and reviewed 110+ third-party apps for the Mailchimp Partner Program.",
-    "Today I'm focused on two things: bringing AI into everyday testing with tools like Claude Code and Hermes Agent, " +
-      "and growing into security testing and VAPT with Burp Suite, the OWASP Top 10 and Linux.",
+    "I'm a QA Automation Engineer with nearly six years of manual and automated testing of web, mobile (Android & iOS) " +
+      "and API products for HRMS, fintech, healthcare, EdTech, e-commerce, logistics and transport companies. I've built " +
+      "a UI automation framework from scratch, set up QA processes for product teams, and reviewed 110+ third-party apps " +
+      "for the Mailchimp Partner Program.",
+    "Alongside automation I do hands-on security testing: SQL injection, XSS, IDOR / broken access control and JWT / " +
+      "session flaws with Burp Suite, OWASP ZAP, Nmap and Kali Linux. I also bring AI into everyday testing with Claude Code.",
   ],
 
   highlights: [
     "Framework builder — designed UI automation from scratch with Selenium, Java, TestNG and POM on Jenkins CI",
-    "Full-stack tester — web, Android, iOS, REST APIs and performance (JMeter, k6)",
+    "Full-stack tester — web, Android, iOS, REST APIs, databases and performance (k6, JMeter)",
+    "Security tester — SQLi, XSS, IDOR and JWT testing with Burp Suite, OWASP ZAP and Nmap on Kali Linux",
     "AI-assisted — Claude Code for test design and scripting; a Hermes Agent bot on Telegram",
-    "Security-minded — applying Burp Suite and OWASP Top 10 thinking to the products I test",
   ],
 
   skills: [
-    { group: "Test Automation", items: ["Selenium WebDriver", "Playwright", "Cypress", "Appium", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model"] },
-    { group: "API & Performance", items: ["Postman", "Newman", "Rest Assured", "JMeter", "k6"] },
-    { group: "Security Testing", items: ["Burp Suite", "OWASP Top 10", "VAPT fundamentals", "Penetration testing fundamentals", "Authentication testing", "Access-control testing"] },
-    { group: "AI & Agents", items: ["Claude Code", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
-    { group: "Linux & Scripting", items: ["Linux (Ubuntu)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL)"] },
+    { group: "Manual Testing & Test Design", items: ["Boundary value analysis", "Equivalence partitioning", "Decision tables", "State transition", "Exploratory testing", "Test plans & strategy", "Defect life cycle & triage", "Test metrics & reporting", "Accessibility (WCAG 2.1, axe)", "Localization testing", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Agile / Scrum"] },
+    { group: "Test Automation", items: ["Selenium WebDriver", "Selenium Grid", "Playwright", "Cypress", "Appium (real & cloud devices)", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model", "BrowserStack", "Visual testing"] },
+    { group: "API & Performance", items: ["Postman", "Newman", "Rest Assured", "Contract testing (Pact)", "k6 load & stress", "JMeter", "Grafana & InfluxDB"] },
+    { group: "Security Testing", items: ["Burp Suite", "OWASP ZAP", "Nmap", "Kali Linux", "OWASP Top 10", "OWASP API Security Top 10", "SQL injection", "XSS", "IDOR / access control", "JWT & session testing", "VAPT", "Bug bounty reporting"] },
+    { group: "AI & Agents", items: ["Claude Code", "Playwright MCP", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
+    { group: "Linux & Scripting", items: ["Linux (Ubuntu, Kali)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL) & database testing"] },
     { group: "CI/CD & DevOps", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle"] },
-    { group: "QA Process", items: ["Manual testing", "Test strategy", "Requirement analysis", "RTM", "Test case design", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Mobile testing", "Agile / Scrum"] },
     { group: "Tools", items: ["Jira", "ClickUp", "Bugzilla", "Trello", "Figma (UI validation)"] },
   ],
 
   domains: [
-    "HRMS & Payroll", "Warehouse (WHMS) & Procurement", "Logistics & Parcel Delivery",
-    "E-commerce & Payment Gateways", "Supply Chain & BOM", "Email Marketing SaaS", "Digital Advertising",
+    "HRMS & Payroll", "Fintech", "Healthcare", "EdTech", "Transport Systems", "Warehouse (WHMS) & Procurement",
+    "Logistics & Parcel Delivery", "E-commerce & Payment Gateways", "Supply Chain & BOM", "Email Marketing SaaS",
+    "Digital Advertising", "Mobile Apps (Android & iOS)",
   ],
 
   experience: [
@@ -145,12 +147,12 @@ window.PORTFOLIO = {
 
   security: {
     intro:
-      "Nearly six years of breaking software taught me to think about what can go wrong. I'm now turning that mindset into " +
-      "structured security testing and VAPT.",
+      "Nearly six years of breaking software taught me to think about what can go wrong. I test web apps and APIs the way " +
+      "an attacker would, and report what I find the way a QA engineer should: clear steps, impact and a fix.",
     now: [
-      { title: "Cyber Security Course", status: "In progress", detail: "Structured training in security testing and penetration testing fundamentals." },
-      { title: "Web security practice", status: "Practising", detail: "Burp Suite, OWASP Top 10, authentication and access-control testing." },
-      { title: "Linux (Ubuntu)", status: "Practising", detail: "Command-line skills for running and scripting security tools." },
+      { title: "Web application testing", status: "Hands-on", detail: "SQL injection, XSS, IDOR / broken access control, JWT and session flaws with Burp Suite and OWASP ZAP, against the OWASP Top 10." },
+      { title: "API & network recon", status: "Hands-on", detail: "OWASP API Security Top 10, Nmap scanning and Kali Linux tooling; findings written up for bug bounty programmes." },
+      { title: "Currently learning", status: "In progress", detail: "Cyber security course, ISTQB Foundation Level (CTFL), and labs on TryHackMe, HackTheBox and PortSwigger Academy." },
     ],
     roadmap: [
       { step: "eJPT", note: "Junior Penetration Tester — hands-on entry certification" },
@@ -160,7 +162,9 @@ window.PORTFOLIO = {
   },
 
   training: [
+    { title: "Arena Web Security", detail: "The Hacker's Arena" },
     { title: "Cyber Security Course", detail: "In progress · 2026" },
+    { title: "ISTQB Foundation Level (CTFL)", detail: "Studying · 2026" },
     { title: "Certification courses", detail: "BITM (BASIS Institute of Technology & Management) and People N Tech" },
   ],
 
