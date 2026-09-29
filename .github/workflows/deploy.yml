@@ -64,3 +64,20 @@ jobs:
           path: ./site
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-cloudflare:
+    name: Deploy to Cloudflare Pages
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [test, lighthouse]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Deploy site/ to moinulislam.pages.dev
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # not a secret: identifies the Cloudflare account that owns the project
+          CLOUDFLARE_ACCOUNT_ID: f7761ca330d319f26a1cefb1aedabb19
+        run: npx --yes wrangler@4 pages deploy site --project-name moinulislam --branch main --commit-hash "$GITHUB_SHA"
