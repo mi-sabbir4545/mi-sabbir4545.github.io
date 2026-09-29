@@ -2,7 +2,8 @@
 
 [![Test & Deploy](https://github.com/mi-sabbir4545/mi-sabbir4545.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/mi-sabbir4545/mi-sabbir4545.github.io/actions/workflows/deploy.yml)
 
-**Live site:** https://mi-sabbir4545.github.io
+**Live site:** https://mi-sabbir4545.github.io  
+**Live site (Cloudflare Pages):** https://moinulislam.pages.dev
 
 Personal portfolio of **Moinul Islam**, a QA Automation & Security Testing Engineer. It covers web, mobile and API testing, AI-assisted testing with Claude Code, and security testing / VAPT.
 
