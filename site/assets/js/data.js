@@ -47,11 +47,11 @@ window.PORTFOLIO = {
   skills: [
     { group: "Test Automation", items: ["Selenium WebDriver", "Playwright", "Cypress", "Appium", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model"] },
     { group: "API & Performance", items: ["Postman", "Newman", "Rest Assured", "JMeter", "k6"] },
-    { group: "Security Testing", items: ["Burp Suite", "OWASP Top 10", "VAPT fundamentals", "Authentication testing", "Access-control testing"] },
+    { group: "Security Testing", items: ["Burp Suite", "OWASP Top 10", "VAPT fundamentals", "Penetration testing fundamentals", "Authentication testing", "Access-control testing"] },
     { group: "AI & Agents", items: ["Claude Code", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
     { group: "Linux & Scripting", items: ["Linux (Ubuntu)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL)"] },
     { group: "CI/CD & DevOps", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle"] },
-    { group: "QA Process", items: ["Test strategy", "Requirement analysis", "RTM", "Test case design", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Mobile testing", "Agile / Scrum"] },
+    { group: "QA Process", items: ["Manual testing", "Test strategy", "Requirement analysis", "RTM", "Test case design", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Mobile testing", "Agile / Scrum"] },
     { group: "Tools", items: ["Jira", "ClickUp", "Bugzilla", "Trello", "Figma (UI validation)"] },
   ],
 

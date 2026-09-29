@@ -1,0 +1,42 @@
+# Moinul Islam — QA Automation, Manual & Security Tester
+
+> Moinul Islam is a QA Automation Engineer and manual tester based in Dhaka, Bangladesh, with nearly six years of experience (since 2021) testing web, mobile (iOS/Android) and API products. He builds test automation frameworks, uses AI-assisted testing with Claude Code, and is growing into security testing and penetration testing (VAPT). Open to remote roles: QA Automation, SDET, Security QA / VAPT.
+
+- Website: https://moinulislam.pages.dev/
+- Mirror: https://mi-sabbir4545.github.io/
+- CV (PDF): https://moinulislam.pages.dev/assets/Moinul_Islam_CV.pdf
+- Email: sabbir722722@gmail.com
+- LinkedIn: https://www.linkedin.com/in/moinul-islam-a67008182
+- GitHub: https://github.com/mi-sabbir4545
+- Location: Dhaka, Bangladesh (UTC+6), open to remote work
+
+## Summary
+
+- Nearly 6 years of manual and automated testing across HRMS & payroll, e-commerce & payment gateways, logistics, supply chain, email-marketing SaaS and digital advertising.
+- Built a UI automation framework from scratch (Selenium WebDriver, Java, TestNG, Page Object Model) running in Jenkins CI.
+- Reviewed 110+ third-party apps for the Mailchimp Partner Program.
+- AI-assisted testing: uses Claude Code for test design, automation scripting and bug reports; built a Hermes Agent assistant bot on Telegram.
+- Security: practising web security testing with Burp Suite and the OWASP Top 10, authentication and access-control testing; taking a cyber security course. Certification roadmap: eJPT, then BSCP, then OSCP.
+
+## Skills
+
+- Manual testing: test strategy, requirement analysis, RTM, test case design, regression, smoke & sanity, UAT, cross-browser, mobile testing, Agile / Scrum
+- Test automation: Selenium WebDriver, Playwright, Cypress, Appium, Katalon Studio, TestNG, JUnit, Pytest, Robot Framework, Cucumber (BDD), Page Object Model
+- API & performance testing: Postman, Newman, Rest Assured, JMeter, k6
+- Security testing: Burp Suite, OWASP Top 10, VAPT fundamentals, penetration testing fundamentals, authentication testing, access-control testing
+- AI & agents: Claude Code, AI-assisted test design, prompt engineering, Hermes Agent, Telegram bot
+- Languages & Linux: Python, Java, JavaScript, SQL (MySQL), Linux (Ubuntu), command line
+- CI/CD: Jenkins, GitHub Actions, Docker, Git / GitHub, Maven, Gradle
+- Tools: Jira, ClickUp, Bugzilla, Trello, Figma (UI validation)
+
+## Experience
+
+- Software Quality Assurance Engineer (Automation), BYSL Global Technology Group — Jan 2023 to present. Set up the QA process, built the Selenium/Java/TestNG framework on Jenkins, automated API regression (Postman/Newman, Rest Assured), led QA for the enterprise HRMS suite on web and Android (Appium), tested e-commerce, logistics and BOM products across web, iPad, iPhone and Android.
+- SQA & Test Automation Engineer, Quality Up Services — Apr 2022 to Dec 2022. Reviewed 110+ Mailchimp Partner Program apps, end-to-end testing of Mailchimp mobile web and native iOS/Android apps, Python/Selenium/Pytest automation with Allure reports, API testing.
+- SQA Engineer, SEBPO — Jan 2021 to Mar 2022. Cross-browser and cross-device testing of digital ad creatives, test cases from SRS and wireframes, Selenium and Katalon automation, JMeter performance testing.
+
+## Education
+
+- BSc in Computer Science and Engineering, Bangladesh University of Business and Technology (BUBT), 2020
+- Certification courses: BITM (BASIS Institute of Technology & Management) and People N Tech
+- Cyber Security Course, in progress (2026)
