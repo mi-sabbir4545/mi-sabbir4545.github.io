@@ -42,15 +42,15 @@ window.PORTFOLIO = {
     "Framework builder — designed UI automation from scratch with Selenium, Java, TestNG and POM on Jenkins CI",
     "Full-stack tester — web, Android, iOS, REST APIs, databases and performance (k6, JMeter)",
     "Security tester — SQLi, XSS, IDOR and JWT testing with Burp Suite, OWASP ZAP and Nmap on Kali Linux",
-    "AI-assisted — Claude Code for test design and scripting; a Hermes Agent bot on Telegram",
+    "AI-assisted — Claude Code and Command Code for test design; Playwright MCP and Google ARTEMIS for AI-driven web and Android automation",
   ],
 
   skills: [
     { group: "Manual Testing & Test Design", items: ["Boundary value analysis", "Equivalence partitioning", "Decision tables", "State transition", "Exploratory testing", "Test plans & strategy", "Defect life cycle & triage", "Test metrics & reporting", "Accessibility (WCAG 2.1, axe)", "Localization testing", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Agile / Scrum"] },
-    { group: "Test Automation", items: ["Selenium WebDriver", "Selenium Grid", "Playwright", "Cypress", "Appium (real & cloud devices)", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model", "BrowserStack", "Visual testing"] },
+    { group: "Test Automation", items: ["Selenium WebDriver", "Selenium Grid", "Playwright", "Playwright CLI", "Cypress", "Appium (real & cloud devices)", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model", "BrowserStack", "Visual testing"] },
     { group: "API & Performance", items: ["Postman", "Newman", "Rest Assured", "Contract testing (Pact)", "k6 load & stress", "JMeter", "Grafana & InfluxDB"] },
     { group: "Security Testing", items: ["Burp Suite", "OWASP ZAP", "Nmap", "Kali Linux", "OWASP Top 10", "OWASP API Security Top 10", "SQL injection", "XSS", "IDOR / access control", "JWT & session testing", "VAPT", "Bug bounty reporting"] },
-    { group: "AI & Agents", items: ["Claude Code", "Playwright MCP", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
+    { group: "AI-Assisted Testing", items: ["Claude Code", "Command Code", "Playwright MCP", "Google ARTEMIS (Android, via MCP)", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
     { group: "Linux & Scripting", items: ["Linux (Ubuntu, Kali)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL) & database testing"] },
     { group: "CI/CD & DevOps", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle"] },
     { group: "Tools", items: ["Jira", "ClickUp", "Bugzilla", "Trello", "Figma (UI validation)"] },

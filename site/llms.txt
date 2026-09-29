@@ -16,16 +16,16 @@
 - Built a UI automation framework from scratch (Selenium WebDriver, Java, TestNG, Page Object Model) running in Jenkins CI.
 - Reviewed 110+ third-party apps for the Mailchimp Partner Program.
 - Security testing: SQL injection, XSS, IDOR / broken access control, JWT and session testing against the OWASP Top 10 and OWASP API Security Top 10, using Burp Suite, OWASP ZAP, Nmap and Kali Linux; has reported findings to bug bounty programmes.
-- AI-assisted testing: uses Claude Code and Playwright MCP for test design, automation scripting and bug reports; built a Hermes Agent assistant bot on Telegram.
+- AI-assisted testing: uses Claude Code, Command Code, Playwright MCP and Google ARTEMIS (Android) for test design, automation scripting and bug reports; built a Hermes Agent assistant bot on Telegram.
 - Currently learning: ISTQB Foundation Level (CTFL), a cyber security course, and labs on TryHackMe, HackTheBox and PortSwigger Web Security Academy. Certification roadmap: eJPT, then BSCP, then OSCP.
 
 ## Skills
 
 - Manual testing & test design: boundary value analysis, equivalence partitioning, decision tables, state transition, exploratory testing, test plans & strategy, defect life cycle & severity/priority triage, test metrics & QA reporting (pass rate, defect density), accessibility testing (WCAG 2.1, axe), localization / multi-language testing, regression, smoke & sanity, UAT, cross-browser, Agile / Scrum
-- Test automation: Selenium WebDriver, Selenium Grid, Playwright, Cypress, Appium (real & cloud devices), Katalon Studio, TestNG, JUnit, Pytest, Robot Framework, Cucumber (BDD), Page Object Model, BrowserStack, parallel & cross-browser runs, visual testing
+- Test automation: Selenium WebDriver, Selenium Grid, Playwright, Playwright CLI, Cypress, Appium (real & cloud devices), Katalon Studio, TestNG, JUnit, Pytest, Robot Framework, Cucumber (BDD), Page Object Model, BrowserStack, parallel & cross-browser runs, visual testing
 - API & performance testing: Postman, Newman, Rest Assured, contract testing (Pact), load & stress testing with k6 and JMeter, Grafana & InfluxDB dashboards
 - Security testing: Burp Suite, OWASP ZAP, Nmap, Kali Linux, OWASP Top 10, OWASP API Security Top 10, SQL injection, XSS, IDOR / access control, JWT, session & authentication testing, VAPT, bug bounty reporting
-- AI & agents: Claude Code, Playwright MCP, AI-assisted test design, prompt engineering, Hermes Agent, Telegram bot
+- AI-assisted testing: Claude Code, Command Code, Playwright MCP (AI-driven browser automation), Google ARTEMIS (AI-driven Android test automation via MCP with Logcat and screenshot capture), AI-assisted test design, prompt engineering, Hermes Agent (Nous Research), Telegram bot
 - Languages & databases: Python, Java, JavaScript, SQL (MySQL) for database testing & data validation, Linux (Ubuntu, Kali) command line
 - CI/CD: Jenkins, GitHub Actions, Docker (containerised test runs), Git / GitHub, Maven, Gradle
 - Tools: Jira, ClickUp, Bugzilla, Trello, Figma (UI validation)
