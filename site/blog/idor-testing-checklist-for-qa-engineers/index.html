@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>IDOR Testing Checklist for QA Engineers (Burp Suite) | Moinul Islam</title>
+  <meta name="description" content="An IDOR and broken access control testing checklist for QA engineers: two-account setup, Burp Suite Repeater and Autorize, and turning finds into tests.">
+  <meta name="author" content="Moinul Islam">
+  <meta name="theme-color" content="#161412">
+  <link rel="canonical" href="https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/">
+  <meta property="og:title" content="IDOR Testing Checklist for QA Engineers (Burp Suite) | Moinul Islam">
+  <meta property="og:description" content="An IDOR and broken access control testing checklist for QA engineers: two-account setup, Burp Suite Repeater and Autorize, and turning finds into tests.">
+  <meta property="og:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IDOR Testing Checklist for QA Engineers (Burp Suite) | Moinul Islam">
+  <meta name="twitter:description" content="An IDOR and broken access control testing checklist for QA engineers: two-account setup, Burp Suite Repeater and Autorize, and turning finds into tests.">
+  <meta name="twitter:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "IDOR Testing Checklist for QA Engineers",
+  "description": "An IDOR and broken access control testing checklist for QA engineers: two-account setup, Burp Suite Repeater and Autorize, and turning finds into tests.",
+  "url": "https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/",
+  "mainEntityOfPage": "https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/",
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "inLanguage": "en",
+  "keywords": [
+    "IDOR",
+    "broken access control",
+    "BOLA",
+    "security testing",
+    "Burp Suite",
+    "API testing",
+    "QA"
+  ],
+  "wordCount": 734,
+  "image": "https://moinulislam.pages.dev/assets/img/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/",
+    "jobTitle": "QA Automation & Security Testing Engineer"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/"
+  }
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" title="Moinul Islam — Blog">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img class="brand-mark" src="/assets/img/profile.webp" alt="" width="34" height="34">
+        <span class="brand-name">Moinul Islam</span>
+      </a>
+      <nav class="site-nav page-nav" aria-label="Main">
+        <a href="/">Portfolio</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+      <h1>IDOR Testing Checklist for QA Engineers</h1>
+      <p class="post-meta">By <a href="/">Moinul Islam</a> · <time datetime="2026-10-04">4 October 2026</time></p>
+
+        <p class="lead">An insecure direct object reference (IDOR) happens when an application uses an ID from the request to fetch an object and never checks that the caller is allowed to have it. Change <code>/api/invoices/1001</code> to <code>/api/invoices/1002</code> and you're reading someone else's invoice. It's one of the most common serious bugs in web and mobile APIs, and QA engineers are well placed to find it.</p>
+        <p>In OWASP terms, IDOR is part of <strong>A01:2021 Broken Access Control</strong>, which is first on the OWASP Top 10. In the OWASP API Security Top 10 it's called <strong>API1:2023 Broken Object Level Authorization (BOLA)</strong>.</p>
+        <p><strong>Only test applications you're authorized to test:</strong> your own product, a staging environment you have permission for, or a bug bounty programme whose scope includes the target.</p>
+
+        <h2>1. Set up two accounts (and roles)</h2>
+        <ul>
+          <li>Create <strong>User A</strong> and <strong>User B</strong> at the same role level, in different organizations or tenants if the product has them.</li>
+          <li>If the product has roles, also create a low-privilege user (viewer) and a high-privilege user (admin).</li>
+          <li>Give each account its own data: orders, files, messages, profile and payment methods.</li>
+        </ul>
+
+        <h2>2. Map every object reference</h2>
+        <p>Use the application as User A with Burp Suite proxying the traffic. Then look through the HTTP history for anything that identifies an object:</p>
+        <ul>
+          <li>Path parameters: <code>/users/57/settings</code></li>
+          <li>Query parameters: <code>?accountId=57</code>, <code>?file=report-57.pdf</code></li>
+          <li>JSON bodies: <code>{"orderId": 1042}</code>, including nested and array fields</li>
+          <li>Headers and cookies that carry a user or tenant ID</li>
+          <li>GraphQL arguments: <code>order(id: "1042")</code></li>
+          <li>Export, download and print endpoints, which often get forgotten</li>
+        </ul>
+
+        <h2>3. Swap the IDs</h2>
+        <p>Send each request to <strong>Repeater</strong>. Keep User A's session, replace the ID with one of User B's, and compare the response.</p>
+        <ul>
+          <li><strong>Read:</strong> can A see B's object?</li>
+          <li><strong>Write:</strong> can A update B's object with <code>PUT</code> or <code>PATCH</code>? Then log in as B and check whether it actually changed.</li>
+          <li><strong>Delete:</strong> can A delete B's object?</li>
+          <li><strong>Create on behalf of:</strong> can A create an object with <code>"ownerId"</code> set to B?</li>
+          <li><strong>Other methods:</strong> if <code>GET</code> is protected, try <code>POST</code>, <code>PUT</code> and <code>DELETE</code> on the same path.</li>
+          <li><strong>Other versions:</strong> if <code>/api/v2/</code> is protected, try <code>/api/v1/</code>.</li>
+        </ul>
+        <p>A <code>200</code> response isn't proof on its own, so check the body. And a <code>403</code> on the read doesn't prove the write is safe.</p>
+
+        <h2>4. Don't be fooled by "unguessable" IDs</h2>
+        <p>UUIDs make IDs hard to guess, but they don't fix access control. Real applications leak IDs all the time: in other API responses, shared links, email notifications, exports, logs and URLs. If the server doesn't check ownership, any leaked UUID is enough to get in.</p>
+
+        <h2>5. Scale it up with Autorize</h2>
+        <p>The <strong>Autorize</strong> extension for Burp Suite replays every request you make with a second user's session (and with no session at all). It flags the ones that still succeed. Browse the whole application as the high-privilege user and let Autorize test it with the low-privilege session. It's the fastest way to cover a large app, but confirm every flagged request by hand before you report it.</p>
+
+        <h2>6. Report it so it gets fixed</h2>
+        <ul>
+          <li><strong>Title:</strong> what one user can do to another, e.g. "Any user can read other customers' invoices via /api/invoices/{id}".</li>
+          <li><strong>Steps:</strong> the two accounts, the exact request and the changed ID.</li>
+          <li><strong>Impact:</strong> what data or actions are exposed, and how many users are affected.</li>
+          <li><strong>Fix:</strong> check object ownership on the server for every request, ideally in one shared authorization layer and not separately in each endpoint.</li>
+        </ul>
+
+        <h2>7. Turn every finding into a regression test</h2>
+        <p>This is where QA adds most value. Once a developer fixes the bug, add an automated test so it can't come back:</p>
+<pre tabindex="0"><code>test("user A cannot read user B's invoice", async ({ request }) => {
+  const res = await request.get(`/api/invoices/${fixtures.userB.invoiceId}`, {
+    headers: { Authorization: `Bearer ${fixtures.userA.token}` },
+  });
+  expect([403, 404]).toContain(res.status());
+});</code></pre>
+        <p>Run these in CI with the rest of your suite. I describe the full setup in <a href="/blog/qa-automation-security-testing-ci-pipeline/">QA automation and security testing in one CI pipeline</a>.</p>
+
+        <h2>The checklist</h2>
+        <ol>
+          <li>Two users per role, each with their own data.</li>
+          <li>Every object reference mapped: path, query, body, headers, GraphQL and exports.</li>
+          <li>Read, write, delete and create-as-another-user tested for each one.</li>
+          <li>Other HTTP methods and older API versions tried.</li>
+          <li>UUID-based endpoints tested with IDs leaked from elsewhere.</li>
+          <li>The whole app replayed with Autorize as a low-privilege and an unauthenticated user.</li>
+          <li>Every confirmed finding reported with impact and a clear fix.</li>
+          <li>Every fix covered by an automated regression test.</li>
+        </ol>
+
+        <aside class="author-box" aria-label="About the author">
+          <p><strong>Moinul Islam</strong> is a QA automation and security testing engineer in Dhaka, Bangladesh, with nearly six years of web, mobile and API testing. He builds test automation frameworks and does hands-on security testing with Burp Suite, OWASP ZAP and Kali Linux. <a href="/">See his portfolio</a> or <a href="mailto:sabbir722722@gmail.com">get in touch</a>.</p>
+        </aside>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Moinul Islam · QA Automation &amp; Security Testing Engineer, Dhaka, Bangladesh</p>
+      <p><a href="/blog/feed.xml">RSS / Atom feed</a></p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/page.js"></script>
+</body>
+</html>

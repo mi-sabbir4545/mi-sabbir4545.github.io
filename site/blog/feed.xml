@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Moinul Islam — QA Automation &amp; Security Testing Blog</title>
+  <link href="https://moinulislam.pages.dev/blog/"/>
+  <link rel="self" href="https://moinulislam.pages.dev/blog/feed.xml"/>
+  <id>https://moinulislam.pages.dev/blog/</id>
+  <updated>2026-10-04T00:00:00Z</updated>
+  <author><name>Moinul Islam</name></author>
+  <entry>
+    <title>QA Automation and Security Testing in One CI Pipeline</title>
+    <link href="https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/"/>
+    <id>https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <summary>How to run Playwright tests, API security checks and an OWASP ZAP scan in the same CI pipeline, so every pull request gets functional and security feedback.</summary>
+  </entry>
+  <entry>
+    <title>IDOR Testing Checklist for QA Engineers</title>
+    <link href="https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/"/>
+    <id>https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <summary>An IDOR and broken access control testing checklist for QA engineers: two-account setup, Burp Suite Repeater and Autorize, and turning finds into tests.</summary>
+  </entry>
+  <entry>
+    <title>QA Automation and Security Testing Careers in Bangladesh: A Roadmap</title>
+    <link href="https://moinulislam.pages.dev/blog/qa-automation-security-testing-career-bangladesh/"/>
+    <id>https://moinulislam.pages.dev/blog/qa-automation-security-testing-career-bangladesh/</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <summary>A practical roadmap for becoming a QA automation and security testing engineer in Bangladesh: skills, tools, certifications, portfolio and remote work.</summary>
+  </entry>
+</feed>

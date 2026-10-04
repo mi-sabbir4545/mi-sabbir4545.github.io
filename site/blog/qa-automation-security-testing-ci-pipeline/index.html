@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>QA Automation &amp; Security Testing in One CI Pipeline | Moinul Islam</title>
+  <meta name="description" content="How to run Playwright tests, API security checks and an OWASP ZAP scan in the same CI pipeline, so every pull request gets functional and security feedback.">
+  <meta name="author" content="Moinul Islam">
+  <meta name="theme-color" content="#161412">
+  <link rel="canonical" href="https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/">
+  <meta property="og:title" content="QA Automation &amp; Security Testing in One CI Pipeline | Moinul Islam">
+  <meta property="og:description" content="How to run Playwright tests, API security checks and an OWASP ZAP scan in the same CI pipeline, so every pull request gets functional and security feedback.">
+  <meta property="og:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA Automation &amp; Security Testing in One CI Pipeline | Moinul Islam">
+  <meta name="twitter:description" content="How to run Playwright tests, API security checks and an OWASP ZAP scan in the same CI pipeline, so every pull request gets functional and security feedback.">
+  <meta name="twitter:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "QA Automation and Security Testing in One CI Pipeline",
+  "description": "How to run Playwright tests, API security checks and an OWASP ZAP scan in the same CI pipeline, so every pull request gets functional and security feedback.",
+  "url": "https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/",
+  "mainEntityOfPage": "https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/",
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "inLanguage": "en",
+  "keywords": [
+    "QA automation",
+    "security testing",
+    "CI/CD",
+    "Playwright",
+    "OWASP ZAP",
+    "GitHub Actions",
+    "DevSecOps"
+  ],
+  "wordCount": 792,
+  "image": "https://moinulislam.pages.dev/assets/img/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/",
+    "jobTitle": "QA Automation & Security Testing Engineer"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/"
+  }
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" title="Moinul Islam — Blog">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img class="brand-mark" src="/assets/img/profile.webp" alt="" width="34" height="34">
+        <span class="brand-name">Moinul Islam</span>
+      </a>
+      <nav class="site-nav page-nav" aria-label="Main">
+        <a href="/">Portfolio</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+      <h1>QA Automation and Security Testing in One CI Pipeline</h1>
+      <p class="post-meta">By <a href="/">Moinul Islam</a> · <time datetime="2026-10-04">4 October 2026</time></p>
+
+        <p class="lead">Most teams treat test automation and security testing as two separate jobs, run by different people at different times. Security issues then turn up weeks after the code was written, when fixing them is slow and expensive. You don't need a big security team to change that. A QA automation engineer can put the basic security checks into the same pipeline that already runs the functional tests.</p>
+        <p>This is the layered setup I use. It's four layers, from the cheapest to the most expensive, and each one catches a different kind of problem.</p>
+
+        <h2>Layer 1: functional automation stays the backbone</h2>
+        <p>Your end-to-end and API tests already log in, create data and call real endpoints. That makes them the best starting point for security checks too, because the hard part (getting an authenticated session in a known state) is done already. A typical Playwright test:</p>
+<pre tabindex="0"><code>test("user can open their own order", async ({ page }) => {
+  await page.goto("/orders");
+  await page.getByRole("link", { name: "Order #1042" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Order #1042");
+});</code></pre>
+
+        <h2>Layer 2: security checks written as ordinary tests</h2>
+        <p>Many common security bugs are just missing rules: an endpoint that doesn't check who is calling it, or a header nobody set. They're simple to assert, so write them as normal tests next to your functional ones.</p>
+        <h3>Access control (IDOR / broken object level authorization)</h3>
+        <p>Log in as user A, then ask for an object that belongs to user B. The API must refuse.</p>
+<pre tabindex="0"><code>test("user A cannot read user B's order", async ({ request }) => {
+  const res = await request.get("/api/orders/2001", {
+    headers: { Authorization: `Bearer ${tokens.userA}` },
+  });
+  expect([403, 404]).toContain(res.status());
+});</code></pre>
+        <p>Broken access control is first on the OWASP Top 10 (A01:2021) and broken object level authorization is first on the OWASP API Security Top 10 (API1:2023). Scanners rarely catch it, because a scanner can't know which objects belong to which user. Your tests can, because you created that data. I wrote a separate <a href="/blog/idor-testing-checklist-for-qa-engineers/">IDOR testing checklist</a> on how to find these by hand first.</p>
+        <h3>Authentication</h3>
+        <ul>
+          <li>Every protected endpoint returns <code>401</code> with no token, an expired token and a token with a tampered signature.</li>
+          <li>Logging out actually invalidates the session or token on the server, not only in the browser.</li>
+          <li>Password reset tokens can be used only once and expire.</li>
+        </ul>
+        <h3>Security headers</h3>
+<pre tabindex="0"><code>test("sends basic security headers", async ({ request }) => {
+  const res = await request.get("/");
+  const h = res.headers();
+  expect(h["content-security-policy"]).toBeTruthy();
+  expect(h["x-content-type-options"]).toBe("nosniff");
+  expect(h["strict-transport-security"]).toContain("max-age=");
+});</code></pre>
+
+        <h2>Layer 3: a DAST baseline scan with OWASP ZAP</h2>
+        <p>The OWASP ZAP baseline scan spiders the target and reports passive findings, such as missing headers, insecure cookies and information leaks. It doesn't run active attacks, so it's safe to point at a shared staging environment. In GitHub Actions it's a single Docker command:</p>
+<pre tabindex="0"><code>  zap-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: OWASP ZAP baseline scan
+        run: |
+          mkdir -p zap &amp;&amp; chmod 777 zap
+          docker run --rm -v "$PWD/zap:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py -t https://staging.example.com -r zap-report.html -I
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zap-report
+          path: zap/zap-report.html</code></pre>
+        <p><code>-I</code> keeps warnings from failing the build. Start that way, triage the first report with the developers, and only make the scan blocking once the noise is gone. A blocking job that everyone learns to ignore does more harm than a non-blocking one people actually read.</p>
+
+        <h2>Layer 4: dependency checks</h2>
+        <p>Known-vulnerable libraries are the cheapest risk to catch. Add <code>npm audit --audit-level=high</code> (or <code>pip-audit</code>, or the OWASP Dependency-Check plugin for Maven and Gradle) as its own job, and turn on Dependabot or Renovate so fixes arrive as pull requests.</p>
+
+        <h2>What still needs a human</h2>
+        <p>Automation covers the known, repeatable checks. These still need manual, exploratory security testing with Burp Suite:</p>
+        <ul>
+          <li>Business logic flaws, like applying a coupon twice, skipping a payment step or changing a price on the client.</li>
+          <li>Chained issues, where two low-severity bugs together become a serious one.</li>
+          <li>New features with new trust boundaries, such as file uploads, webhooks, SSO and role changes.</li>
+        </ul>
+        <p>When you find a bug by hand, add an automated test for it. Over time the pipeline turns into a record of every security mistake the product has already made, and it stops any of them from coming back.</p>
+
+        <h2>A short checklist to start with</h2>
+        <ol>
+          <li>Create two test users with separate data in your test fixtures.</li>
+          <li>Add one cross-user access test per sensitive API resource.</li>
+          <li>Add authentication tests for missing, expired and tampered tokens.</li>
+          <li>Assert the security headers you expect.</li>
+          <li>Run a non-blocking ZAP baseline scan against staging and triage it.</li>
+          <li>Add a dependency audit job.</li>
+          <li>Turn every manually found security bug into a regression test.</li>
+        </ol>
+        <p>None of this replaces a proper penetration test. It does mean the pen tester's time goes on hard problems, not on missing headers and other easy findings.</p>
+
+        <aside class="author-box" aria-label="About the author">
+          <p><strong>Moinul Islam</strong> is a QA automation and security testing engineer in Dhaka, Bangladesh, with nearly six years of web, mobile and API testing. He builds test automation frameworks and does hands-on security testing with Burp Suite, OWASP ZAP and Kali Linux. <a href="/">See his portfolio</a> or <a href="mailto:sabbir722722@gmail.com">get in touch</a>.</p>
+        </aside>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Moinul Islam · QA Automation &amp; Security Testing Engineer, Dhaka, Bangladesh</p>
+      <p><a href="/blog/feed.xml">RSS / Atom feed</a></p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/page.js"></script>
+</body>
+</html>

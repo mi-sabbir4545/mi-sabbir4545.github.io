@@ -117,3 +117,69 @@ test.describe("Portfolio smoke tests", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Page not found");
   });
 });
+
+const BLOG_PAGES = [
+  "/blog/",
+  "/blog/qa-automation-security-testing-ci-pipeline/",
+  "/blog/idor-testing-checklist-for-qa-engineers/",
+  "/blog/qa-automation-security-testing-career-bangladesh/",
+];
+
+test.describe("SEO and blog", () => {
+  for (const path of ["/", ...BLOG_PAGES]) {
+    test(`${path} has a search-friendly title, description and canonical`, async ({ page }) => {
+      await page.goto(path);
+      // Bing flags titles of 70+ characters and descriptions outside 25-160.
+      const title = await page.title();
+      expect(title.length).toBeLessThan(70);
+      const desc = (await page.locator('meta[name="description"]').getAttribute("content")) || "";
+      expect(desc.length).toBeGreaterThanOrEqual(25);
+      expect(desc.length).toBeLessThanOrEqual(160);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://moinulislam.pages.dev${path}`);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    });
+  }
+
+  test("blog index and homepage link to every article", async ({ page }) => {
+    for (const listPage of ["/", "/blog/"]) {
+      await page.goto(listPage);
+      for (const path of BLOG_PAGES.slice(1)) {
+        await expect(page.locator(`a[href="${path}"]`).first(), `${listPage} → ${path}`).toBeVisible();
+      }
+    }
+  });
+
+  test("internal links on blog pages resolve", async ({ page, request }) => {
+    const seen = new Set();
+    for (const path of BLOG_PAGES) {
+      await page.goto(path);
+      const hrefs = await page.locator('a[href^="/"]').evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+      for (const href of hrefs) {
+        if (!href || seen.has(href)) continue;
+        seen.add(href);
+        const res = await request.get(href);
+        expect(res.status(), `${path} → ${href}`).toBe(200);
+      }
+    }
+  });
+
+  test("blog pages have no serious accessibility violations or console errors", async ({ page }) => {
+    test.setTimeout(90_000);
+    const errors = [];
+    page.on("pageerror", (err) => errors.push(err.message));
+    page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
+    for (const path of BLOG_PAGES) {
+      await page.goto(path);
+      for (const theme of ["dark", "light"]) {
+        if (theme === "light") await page.locator("#theme-toggle").click();
+        const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+        const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
+        expect(serious.map((v) => `${path} ${theme}: ${v.id} — ${v.help}`)).toEqual([]);
+      }
+      await page.locator("#theme-toggle").click(); // back to dark for the next page
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      expect(overflow, `${path} horizontal scroll`).toBeLessThanOrEqual(0);
+    }
+    expect(errors).toEqual([]);
+  });
+});

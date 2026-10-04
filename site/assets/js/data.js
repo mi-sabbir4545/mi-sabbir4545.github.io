@@ -8,7 +8,7 @@
 window.PORTFOLIO = {
   greeting: "Hi, I'm",
   name: "Moinul Islam",
-  role: "QA Automation & Security Testing Engineer",
+  role: "QA Automation & Security Testing Engineer in Bangladesh",
   tagline:
     "I break web, mobile and API products before users do — with automation frameworks, " +
     "an attacker's mindset and AI-assisted testing.",

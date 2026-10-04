@@ -1,6 +1,6 @@
-# Moinul Islam — QA Automation, Manual & Security Tester
+# Moinul Islam — QA Automation & Security Testing Engineer, Bangladesh
 
-> Moinul Islam is a QA Automation Engineer, manual tester and security tester based in Dhaka, Bangladesh, with nearly six years of experience (since 2021) testing web, mobile (Android & iOS) and API products across HRMS, fintech, healthcare, EdTech, e-commerce, logistics and transport systems. He builds test automation frameworks, runs load tests, does hands-on security and penetration testing (SQL injection, XSS, IDOR, JWT) with Burp Suite, OWASP ZAP, Nmap and Kali Linux, and uses AI-assisted testing with Claude Code. Open to remote roles: QA Automation, SDET, Security QA / VAPT.
+> Moinul Islam is a QA automation and security testing engineer (also a manual tester) based in Dhaka, Bangladesh, with nearly six years of experience (since 2021) testing web, mobile (Android & iOS) and API products across HRMS, fintech, healthcare, EdTech, e-commerce, logistics and transport systems. He builds test automation frameworks, runs load tests, does hands-on security and penetration testing (SQL injection, XSS, IDOR, JWT) with Burp Suite, OWASP ZAP, Nmap and Kali Linux, and uses AI-assisted testing with Claude Code. Open to remote roles: QA Automation, SDET, Security QA / VAPT.
 
 - Website: https://moinulislam.pages.dev/
 - Mirror: https://mi-sabbir4545.github.io/
@@ -42,3 +42,9 @@
 - Arena Web Security — The Hacker's Arena
 - Certification courses: BITM (BASIS Institute of Technology & Management) and People N Tech
 - Cyber Security Course, in progress (2026); ISTQB Foundation Level (CTFL), studying (2026)
+
+## Articles
+
+- QA Automation and Security Testing in One CI Pipeline: https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/
+- IDOR Testing Checklist for QA Engineers: https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/
+- QA Automation and Security Testing Careers in Bangladesh: A Roadmap: https://moinulislam.pages.dev/blog/qa-automation-security-testing-career-bangladesh/
