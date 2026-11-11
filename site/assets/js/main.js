@@ -141,7 +141,7 @@
     toggle.setAttribute("aria-pressed", String(isLight));
     toggle.setAttribute("aria-label", isLight ? "Switch to dark theme" : "Switch to light theme");
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", isLight ? "#f4efe6" : "#161412");
+    if (meta) meta.setAttribute("content", isLight ? "#fafafd" : "#0b0a24");
   }
   toggle.addEventListener("click", function () {
     var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";

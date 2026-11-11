@@ -59,12 +59,20 @@ test.describe("Portfolio smoke tests", () => {
 
   test("theme toggle switches and remembers the choice", async ({ page }) => {
     const html = page.locator("html");
-    await expect(html).toHaveAttribute("data-theme", "dark");
+    await expect(html).toHaveAttribute("data-theme", "light");
     await page.locator("#theme-toggle").click();
-    await expect(html).toHaveAttribute("data-theme", "light");
-    await expect(page.locator("#theme-toggle")).toHaveAttribute("aria-pressed", "true");
+    await expect(html).toHaveAttribute("data-theme", "dark");
+    await expect(page.locator("#theme-toggle")).toHaveAttribute("aria-pressed", "false");
     await page.reload();
-    await expect(html).toHaveAttribute("data-theme", "light");
+    await expect(html).toHaveAttribute("data-theme", "dark");
+  });
+
+  test("FAQ section matches the FAQPage structured data", async ({ page }) => {
+    const visible = await page.locator("#faq summary").allInnerTexts();
+    const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
+    const faq = ld.map((t) => JSON.parse(t)).find((d) => d["@type"] === "FAQPage");
+    expect(faq).toBeTruthy();
+    expect(visible.map((t) => t.trim())).toEqual(faq.mainEntity.map((q) => q.name));
   });
 
   test("mobile menu opens, navigates and closes", async ({ page, isMobile }) => {
@@ -96,9 +104,12 @@ test.describe("Portfolio smoke tests", () => {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 
-  test("has no serious accessibility violations (dark + light)", async ({ page }) => {
-    for (const theme of ["dark", "light"]) {
-      if (theme === "light") await page.locator("#theme-toggle").click();
+  test("has no serious accessibility violations (light + dark)", async ({ page }) => {
+    // Check the settled page: mid-animation fades would read as low contrast.
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.reload();
+    for (const theme of ["light", "dark"]) {
+      if (theme === "dark") await page.locator("#theme-toggle").click();
       const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
       const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
       expect(serious.map((v) => `${theme}: ${v.id} — ${v.help}`)).toEqual([]);
@@ -168,15 +179,16 @@ test.describe("SEO and blog", () => {
     const errors = [];
     page.on("pageerror", (err) => errors.push(err.message));
     page.on("console", (msg) => { if (msg.type() === "error") errors.push(msg.text()); });
+    await page.emulateMedia({ reducedMotion: "reduce" }); // check the settled page, not mid-fade
     for (const path of BLOG_PAGES) {
       await page.goto(path);
-      for (const theme of ["dark", "light"]) {
-        if (theme === "light") await page.locator("#theme-toggle").click();
+      for (const theme of ["light", "dark"]) {
+        if (theme === "dark") await page.locator("#theme-toggle").click();
         const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
         const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
         expect(serious.map((v) => `${path} ${theme}: ${v.id} — ${v.help}`)).toEqual([]);
       }
-      await page.locator("#theme-toggle").click(); // back to dark for the next page
+      await page.locator("#theme-toggle").click(); // back to light for the next page
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
       expect(overflow, `${path} horizontal scroll`).toBeLessThanOrEqual(0);
     }
