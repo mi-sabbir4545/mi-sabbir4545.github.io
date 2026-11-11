@@ -32,6 +32,31 @@
     });
   }
 
+  // ---------- count-up stats (e.g. "110+" counts 0 → 110, then the "+" stays) ----------
+  // The real value is already in the page, so without JS or with reduced motion nothing changes.
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    var counters = Array.prototype.filter.call(document.querySelectorAll(".stat-value"), function (el) {
+      var m = el.textContent.trim().match(/^(\d+)(\D*)$/);
+      return m && +m[1] > 1 && +m[1] < 1000; // years like 2021 aren't counts, leave them alone
+    });
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        cio.unobserve(e.target);
+        var el = e.target, m = el.textContent.trim().match(/^(\d+)(\D*)$/);
+        var end = +m[1], suffix = m[2], start = null, dur = 1200;
+        function step(t) {
+          if (start === null) start = t;
+          var p = Math.min((t - start) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(end * eased) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
   // ---------- smooth scroll ----------
   if (reduceMotion || typeof window.Lenis !== "function") return;
   var lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
