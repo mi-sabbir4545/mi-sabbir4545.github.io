@@ -17,7 +17,7 @@ concurrency:
 jobs:
   test:
     name: Playwright + axe
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -36,7 +36,7 @@ jobs:
 
   lighthouse:
     name: Lighthouse CI
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: treosh/lighthouse-ci-action@v12
@@ -49,7 +49,7 @@ jobs:
     name: Deploy to GitHub Pages
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: [test, lighthouse]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
@@ -69,7 +69,7 @@ jobs:
     name: Deploy to Cloudflare Pages
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: [test, lighthouse]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
