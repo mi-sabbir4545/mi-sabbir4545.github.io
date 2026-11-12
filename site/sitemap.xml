@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://moinulislam.pages.dev/blog/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -27,6 +27,12 @@
   <url>
     <loc>https://moinulislam.pages.dev/blog/qa-automation-security-testing-career-bangladesh/</loc>
     <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/</loc>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

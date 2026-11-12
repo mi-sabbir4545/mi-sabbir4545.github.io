@@ -45,6 +45,7 @@
 
 ## Articles
 
+- JWT Testing Checklist for QA Engineers: https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/
 - QA Automation and Security Testing in One CI Pipeline: https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/
 - IDOR Testing Checklist for QA Engineers: https://moinulislam.pages.dev/blog/idor-testing-checklist-for-qa-engineers/
 - QA Automation and Security Testing Careers in Bangladesh: A Roadmap: https://moinulislam.pages.dev/blog/qa-automation-security-testing-career-bangladesh/
