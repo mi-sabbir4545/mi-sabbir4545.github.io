@@ -46,14 +46,14 @@ window.PORTFOLIO = {
   ],
 
   skills: [
-    { group: "Manual Testing & Test Design", items: ["Boundary value analysis", "Equivalence partitioning", "Decision tables", "State transition", "Exploratory testing", "Test plans & strategy", "Defect life cycle & triage", "Test metrics & reporting", "Accessibility (WCAG 2.1, axe)", "Localization testing", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Agile / Scrum"] },
-    { group: "Test Automation", items: ["Selenium WebDriver", "Selenium Grid", "Playwright", "Playwright CLI", "Cypress", "Appium (real & cloud devices)", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model", "BrowserStack", "Visual testing"] },
-    { group: "API & Performance", items: ["Postman", "Newman", "Rest Assured", "Karate DSL", "Contract testing (Pact)", "k6 load & stress", "JMeter", "Gatling", "Grafana & InfluxDB"] },
-    { group: "Security Testing", items: ["Burp Suite", "OWASP ZAP", "Nmap", "Kali Linux", "OWASP Top 10", "OWASP API Security Top 10", "SQL injection", "XSS", "IDOR / access control", "JWT & session testing", "VAPT", "Bug bounty reporting"] },
-    { group: "AI-Assisted Testing", items: ["Claude Code", "Command Code", "Playwright MCP", "Google ARTEMIS (Android, via MCP)", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
-    { group: "Linux & Scripting", items: ["Linux (Ubuntu, Kali)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL) & database testing"] },
-    { group: "CI/CD & DevOps", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle"] },
-    { group: "Tools", items: ["Jira", "ClickUp", "Bugzilla", "Trello", "Figma (UI validation)"] },
+    { group: "Manual Testing & Test Design", icon: "clipboard-check", items: ["Boundary value analysis", "Equivalence partitioning", "Decision tables", "State transition", "Exploratory testing", "Test plans & strategy", "Defect life cycle & triage", "Test metrics & reporting", "Accessibility (WCAG 2.1, axe)", "Localization testing", "Regression", "Smoke & sanity", "UAT", "Cross-browser", "Agile / Scrum"] },
+    { group: "Test Automation", icon: "bot", items: ["Selenium WebDriver", "Selenium Grid", "Playwright", "Playwright CLI", "Cypress", "Appium (real & cloud devices)", "Katalon Studio", "TestNG", "JUnit", "Pytest", "Robot Framework", "Cucumber (BDD)", "Page Object Model", "BrowserStack", "Visual testing"] },
+    { group: "API & Performance", icon: "gauge", items: ["Postman", "Newman", "Rest Assured", "Karate DSL", "Contract testing (Pact)", "k6 load & stress", "JMeter", "Gatling", "Grafana & InfluxDB"] },
+    { group: "Security Testing", icon: "shield-check", items: ["Burp Suite", "OWASP ZAP", "Nmap", "Kali Linux", "OWASP Top 10", "OWASP API Security Top 10", "SQL injection", "XSS", "IDOR / access control", "JWT & session testing", "VAPT", "Bug bounty reporting"] },
+    { group: "AI-Assisted Testing", icon: "sparkles", items: ["Claude Code", "Command Code", "Playwright MCP", "Google ARTEMIS (Android, via MCP)", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
+    { group: "Linux & Scripting", icon: "terminal", items: ["Linux (Ubuntu, Kali)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL) & database testing"] },
+    { group: "CI/CD & DevOps", icon: "git-branch", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle"] },
+    { group: "Tools", icon: "wrench", items: ["Jira", "ClickUp", "Bugzilla", "Trello", "Figma (UI validation)"] },
   ],
 
   domains: [
