@@ -129,12 +129,10 @@ test.describe("Portfolio smoke tests", () => {
   });
 });
 
-const BLOG_PAGES = [
-  "/blog/",
-  "/blog/qa-automation-security-testing-ci-pipeline/",
-  "/blog/idor-testing-checklist-for-qa-engineers/",
-  "/blog/qa-automation-security-testing-career-bangladesh/",
-];
+// Blog pages come from the sitemap, so a new article only needs a sitemap entry to be tested.
+const SITEMAP = require("fs").readFileSync(require("path").join(__dirname, "..", "site", "sitemap.xml"), "utf8");
+const ARTICLES = [...SITEMAP.matchAll(/<loc>https:\/\/moinulislam\.pages\.dev(\/blog\/[^<]+\/)<\/loc>/g)].map((m) => m[1]);
+const BLOG_PAGES = ["/blog/", ...ARTICLES];
 
 test.describe("SEO and blog", () => {
   for (const path of ["/", ...BLOG_PAGES]) {
@@ -151,13 +149,16 @@ test.describe("SEO and blog", () => {
     });
   }
 
-  test("blog index and homepage link to every article", async ({ page }) => {
-    for (const listPage of ["/", "/blog/"]) {
-      await page.goto(listPage);
-      for (const path of BLOG_PAGES.slice(1)) {
-        await expect(page.locator(`a[href="${path}"]`).first(), `${listPage} → ${path}`).toBeVisible();
-      }
+  test("blog index links to every article; homepage shows the latest three", async ({ page }) => {
+    expect(ARTICLES.length).toBeGreaterThan(0);
+    await page.goto("/blog/");
+    for (const path of ARTICLES) {
+      await expect(page.locator(`main a[href="${path}"]`).first(), `/blog/ → ${path}`).toBeVisible();
     }
+    await page.goto("/");
+    const homeLinks = await page.locator("#writing .post-item a").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+    expect(homeLinks.length).toBe(Math.min(3, ARTICLES.length));
+    for (const href of homeLinks) expect(ARTICLES, `homepage links to unknown article ${href}`).toContain(href);
   });
 
   test("internal links on blog pages resolve", async ({ page, request }) => {
