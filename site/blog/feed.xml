@@ -4,8 +4,15 @@
   <link href="https://moinulislam.pages.dev/blog/"/>
   <link rel="self" href="https://moinulislam.pages.dev/blog/feed.xml"/>
   <id>https://moinulislam.pages.dev/blog/</id>
-  <updated>2026-10-04T00:00:00Z</updated>
+  <updated>2026-11-12T00:00:00Z</updated>
   <author><name>Moinul Islam</name></author>
+  <entry>
+    <title>JWT Testing Checklist for QA Engineers</title>
+    <link href="https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/"/>
+    <id>https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/</id>
+    <updated>2026-11-12T00:00:00Z</updated>
+    <summary>How to test JSON Web Tokens: decode them, tamper with claims, try alg none and algorithm confusion, check expiry and audience, then automate the checks in Playwright.</summary>
+  </entry>
   <entry>
     <title>QA Automation and Security Testing in One CI Pipeline</title>
     <link href="https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/"/>

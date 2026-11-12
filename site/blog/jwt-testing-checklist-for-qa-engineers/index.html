@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>JWT Testing Checklist for QA Engineers (Burp Suite) | Moinul Islam</title>
+  <meta name="description" content="A JWT testing checklist for QA engineers: decode tokens, test alg none, signature, expiry and claims with Burp Suite, then automate checks in Playwright.">
+  <meta name="author" content="Moinul Islam">
+  <meta name="theme-color" content="#fafafd">
+  <link rel="canonical" href="https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/">
+  <meta property="og:title" content="JWT Testing Checklist for QA Engineers (Burp Suite) | Moinul Islam">
+  <meta property="og:description" content="A JWT testing checklist for QA engineers: decode tokens, test alg none, signature, expiry and claims with Burp Suite, then automate checks in Playwright.">
+  <meta property="og:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JWT Testing Checklist for QA Engineers (Burp Suite) | Moinul Islam">
+  <meta name="twitter:description" content="A JWT testing checklist for QA engineers: decode tokens, test alg none, signature, expiry and claims with Burp Suite, then automate checks in Playwright.">
+  <meta name="twitter:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JWT Testing Checklist for QA Engineers",
+  "description": "A JWT testing checklist for QA engineers: decode tokens, test alg none, signature, expiry and claims with Burp Suite, then automate checks in Playwright.",
+  "url": "https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/",
+  "mainEntityOfPage": "https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "keywords": [
+    "JWT testing",
+    "JSON Web Token",
+    "API security testing",
+    "broken authentication",
+    "Burp Suite",
+    "Playwright",
+    "QA"
+  ],
+  "wordCount": 1271,
+  "image": "https://moinulislam.pages.dev/assets/img/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/",
+    "jobTitle": "QA Automation & Security Testing Engineer"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/"
+  }
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" title="Moinul Islam — Blog">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img class="brand-mark" src="/assets/img/profile.webp" alt="" width="34" height="34">
+        <span class="brand-name">Moinul Islam</span>
+      </a>
+      <nav class="site-nav page-nav" aria-label="Main">
+        <a href="/">Portfolio</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="true">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+      <h1>JWT Testing Checklist for QA Engineers</h1>
+      <p class="post-meta">By <a href="/">Moinul Islam</a> · <time datetime="2026-11-12">12 November 2026</time></p>
+
+        <p class="lead">To test a JSON Web Token (JWT), decode it, then check that the server rejects every version of it that it shouldn't trust: a changed payload, a removed or <code>none</code> signature, an expired token, and a token meant for a different audience or issuer. If any of those still returns <code>200</code>, authentication is broken. This checklist shows how a QA engineer can run those checks with Burp Suite and automate them.</p>
+        <p>JWT problems fall under <a href="https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/" target="_blank" rel="noopener noreferrer">API2:2023 Broken Authentication</a> in the OWASP API Security Top 10. They are usually configuration and library mistakes, which makes them very testable.</p>
+        <p><strong>Only test applications you're authorized to test:</strong> your own product, a staging environment you have permission for, or a bug bounty programme whose scope includes the target.</p>
+
+        <h2>1. Decode the token and read what's inside</h2>
+        <p>A JWT is three base64url parts separated by dots: <code>header.payload.signature</code>. The header and payload are encoded, not encrypted, so anyone holding the token can read them. Decode one from your test session:</p>
+<pre tabindex="0"><code>node -e "const p=process.argv[1].split('.'); console.log(JSON.parse(Buffer.from(p[0],'base64url')), JSON.parse(Buffer.from(p[1],'base64url')))" "$TOKEN"</code></pre>
+        <p>Avoid pasting real production tokens into online decoders. Decode locally, or use the JWT Editor extension in Burp Suite. Then note:</p>
+        <ul>
+          <li>The <code>alg</code> in the header (<code>HS256</code>, <code>RS256</code>, and so on).</li>
+          <li>Identity and permission claims: <code>sub</code>, <code>role</code>, <code>tenantId</code>, <code>scope</code>.</li>
+          <li>Time claims: <code>exp</code>, <code>nbf</code>, <code>iat</code>, and who issued the token (<code>iss</code>) and for whom (<code>aud</code>).</li>
+          <li>Anything sensitive that shouldn't be there: passwords, personal data, internal IDs or secrets.</li>
+        </ul>
+
+        <h2>2. Tamper with the payload and keep the signature</h2>
+        <p>Change one claim, for example <code>"role": "user"</code> to <code>"role": "admin"</code> or the <code>sub</code> to another user's ID, re-encode the payload and send the token with the original signature. The server must reject it, usually with <code>401</code>. If it accepts the change, it isn't verifying the signature. Do the same for each claim the application trusts.</p>
+
+        <h2>3. Test the "alg: none" and algorithm-confusion cases</h2>
+        <ul>
+          <li><strong>alg none:</strong> set the header to <code>{"alg":"none","typ":"JWT"}</code>, change the payload and remove the signature (keep the trailing dot). A correct server rejects it. Also try <code>None</code> and <code>NONE</code>, because some libraries compare case-sensitively.</li>
+          <li><strong>Algorithm confusion:</strong> if the app signs with <code>RS256</code>, try re-signing the token as <code>HS256</code> using the public key as the HMAC secret. A server that lets the token choose its own algorithm may accept it. Burp's JWT Editor can run this attack for you.</li>
+          <li><strong>Pinned algorithm:</strong> the fix is for the server to allow only the algorithm it expects, and never trust the token's header to decide.</li>
+        </ul>
+
+        <h2>4. Check for weak signing secrets</h2>
+        <p>With <code>HS256</code>, the whole scheme depends on the secret being long and random. On a staging token you're authorized to test, you can try a wordlist offline. Hashcat supports JWT with mode <code>16500</code>. If a short or default secret like <code>secret</code> or the app's name cracks, anyone can forge tokens. Report it and recommend a random secret of at least 32 bytes, or an asymmetric algorithm.</p>
+
+        <h2>5. Validate the claims, not just the signature</h2>
+        <p>A token with a valid signature can still be wrong for the request. Test each of these and expect a rejection:</p>
+        <ul>
+          <li><strong>Expired:</strong> a token whose <code>exp</code> is in the past.</li>
+          <li><strong>Not yet valid:</strong> a token with a future <code>nbf</code>.</li>
+          <li><strong>Wrong audience:</strong> a token issued for a different service (<code>aud</code>).</li>
+          <li><strong>Wrong issuer:</strong> a token from another environment, such as staging used against production (<code>iss</code>).</li>
+          <li><strong>No expiry at all:</strong> a token without <code>exp</code> that the server happily accepts forever.</li>
+        </ul>
+
+        <h2>6. Test header parameters that point to keys</h2>
+        <p>Some headers tell the server where to find the verification key: <code>kid</code>, <code>jku</code>, <code>jwk</code> and <code>x5u</code>. The server must never trust a key the token supplies for itself. Try these:</p>
+        <ul>
+          <li>An embedded <code>jwk</code> containing your own public key, signed with your own private key.</li>
+          <li>A <code>jku</code> or <code>x5u</code> URL pointing to a host you control.</li>
+          <li>A <code>kid</code> with unexpected values, such as path-like strings or quotes, to see whether it's used unsafely in a file lookup or database query.</li>
+        </ul>
+
+        <h2>7. Test the token's lifecycle</h2>
+        <ul>
+          <li><strong>Logout:</strong> does the old token still work after logout? Short-lived tokens plus a server-side revocation list or refresh-token rotation handle this.</li>
+          <li><strong>Password change or role change:</strong> do existing tokens keep the old permissions?</li>
+          <li><strong>Refresh tokens:</strong> can one be reused after rotation, or used from a different client?</li>
+          <li><strong>Storage:</strong> a token in <code>localStorage</code> is readable by any XSS bug. A cookie should be <code>HttpOnly</code>, <code>Secure</code> and have a suitable <code>SameSite</code> value.</li>
+          <li><strong>Lifetime:</strong> access tokens should be short-lived, typically minutes and not days.</li>
+        </ul>
+        <p>Once authentication holds, check authorization too, with the two-account method in my <a href="/blog/idor-testing-checklist-for-qa-engineers/">IDOR testing checklist</a>.</p>
+
+        <h2>8. Automate the checks in Playwright</h2>
+        <p>Manual findings should become regression tests. Playwright's <a href="https://playwright.dev/docs/api-testing" target="_blank" rel="noopener noreferrer">API testing</a> support is enough for this. Here are two examples, one for <code>alg: none</code> and one for a tampered payload:</p>
+<pre tabindex="0"><code>import { test, expect } from "@playwright/test";
+
+const b64 = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
+
+test("rejects an unsigned alg=none token", async ({ request }) => {
+  const token = `${b64({ alg: "none", typ: "JWT" })}.${b64({ sub: "1042", role: "admin" })}.`;
+  const res = await request.get("/api/profile", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  expect(res.status()).toBe(401);
+});
+
+test("rejects a tampered payload", async ({ request }) => {
+  const [h, , s] = fixtures.userA.token.split(".");
+  const forged = `${h}.${b64({ sub: "1", role: "admin" })}.${s}`;
+  const res = await request.get("/api/profile", {
+    headers: { Authorization: `Bearer ${forged}` },
+  });
+  expect(res.status()).toBe(401);
+});</code></pre>
+        <p>Add expired-token and wrong-audience cases the same way, using tokens generated by your test environment. Run them in CI alongside your functional suite, as described in <a href="/blog/qa-automation-security-testing-ci-pipeline/">QA automation and security testing in one CI pipeline</a>.</p>
+
+        <h2>9. Report JWT findings so they get fixed</h2>
+        <ul>
+          <li><strong>Title:</strong> state the effect, e.g. "API accepts unsigned tokens, so any user can impersonate an admin".</li>
+          <li><strong>Steps:</strong> the original token claims, the exact change you made, the request and the response you got back.</li>
+          <li><strong>Impact:</strong> which accounts or roles an attacker could reach, and whether the token works on every endpoint or only some.</li>
+          <li><strong>Fix:</strong> verify with a maintained library, pin the allowed algorithms, validate <code>exp</code>, <code>iss</code> and <code>aud</code>, and use a long random secret or an asymmetric key pair.</li>
+        </ul>
+
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>A JWT is readable by anyone who has it, so it must not hold secrets.</li>
+          <li>The server must verify the signature, pin the algorithm and reject <code>none</code>.</li>
+          <li>Check <code>exp</code>, <code>nbf</code>, <code>iss</code> and <code>aud</code>, not only the signature.</li>
+          <li>Never trust key locations (<code>jwk</code>, <code>jku</code>, <code>kid</code>) supplied by the token.</li>
+          <li>Test logout, refresh and role changes, because the token's lifecycle is where many bugs hide.</li>
+          <li>Turn every confirmed finding into an automated test. For more background, see PortSwigger's <a href="https://portswigger.net/web-security/jwt" target="_blank" rel="noopener noreferrer">JWT attacks guide</a>.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>Is a JWT encrypted?</h3>
+        <p>No. A standard signed JWT (JWS) is only base64url-encoded and signed. Anyone can read its contents, but only the holder of the key can create a valid signature. If you need to hide the contents, use an encrypted token (JWE) or keep the data on the server.</p>
+        <h3>What is the most common JWT vulnerability?</h3>
+        <p>Weak or missing verification: accepting <code>alg: none</code>, not checking the signature, using a guessable HS256 secret, or skipping expiry and audience checks. All of them are quick to test, which is why they belong in a QA security checklist.</p>
+        <h3>Which tools do I need to test JWTs?</h3>
+        <p>Burp Suite with the JWT Editor extension for manual tampering, Hashcat for offline secret testing on tokens you're authorized to test, and Playwright or any API test tool to automate the checks in CI.</p>
+
+        <aside class="author-box" aria-label="About the author">
+          <p><strong>Moinul Islam</strong> is a QA automation and security testing engineer in Dhaka, Bangladesh, with nearly six years of web, mobile and API testing. He builds test automation frameworks and does hands-on security testing with Burp Suite, OWASP ZAP and Kali Linux. <a href="/">See his portfolio</a> or <a href="mailto:sabbir722722@gmail.com">get in touch</a>.</p>
+        </aside>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Moinul Islam · QA Automation &amp; Security Testing Engineer, Dhaka, Bangladesh</p>
+      <p><a href="/blog/feed.xml">RSS / Atom feed</a></p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/page.js"></script>
+  <script src="/assets/js/vendor/lenis.min.js"></script>
+  <script src="/assets/js/motion.js"></script>
+</body>
+</html>
