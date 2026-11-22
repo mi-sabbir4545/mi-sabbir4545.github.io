@@ -9,9 +9,31 @@ window.PORTFOLIO = {
   greeting: "Hi, I'm",
   name: "Moinul Islam",
   role: "QA Automation & Security Testing Engineer in Bangladesh",
+  // Hero: the original one-liner, then a short summary a recruiter can scan at a glance.
   tagline:
     "I break web, mobile and API products before users do — with automation frameworks, " +
     "an attacker's mindset and AI-assisted testing.",
+  summary:
+    "Nearly 6 years of manual and automated testing of web, mobile (Android & iOS) and API products for HRMS, " +
+    "fintech, healthcare, EdTech and e-commerce. I build automation frameworks that run in CI, " +
+    "do hands-on security testing (OWASP Top 10, Burp Suite) and use AI-assisted testing — " +
+    "including 110+ apps reviewed for the Mailchimp Partner Program.",
+
+  // A few key phrases shown slightly bolder across the site — kept short so the text stays easy to read.
+  keywords: [
+    "Nearly 6 years", "nearly six years", "manual and automated testing", "110+", "Mailchimp Partner Program",
+    "web, mobile (Android & iOS) and API", "automation frameworks", "AI-assisted testing",
+    "UI automation framework from scratch", "hands-on security testing", "OWASP Top 10", "Burp Suite",
+    "Selenium", "Playwright", "Appium", "Rest Assured", "Jenkins", "Claude Code",
+  ],
+
+  // Icon shown next to each domain in the hero's domain list (Lucide icon names).
+  domainIcons: {
+    "HRMS & Payroll": "users", "Fintech": "wallet", "Healthcare": "heart-pulse", "EdTech": "graduation-cap",
+    "Transport Systems": "bus", "Warehouse (WHMS) & Procurement": "warehouse", "Logistics & Parcel Delivery": "truck",
+    "E-commerce & Payment Gateways": "shopping-cart", "Supply Chain & BOM": "boxes", "Email Marketing SaaS": "mail",
+    "Digital Advertising": "megaphone", "Mobile Apps (Android & iOS)": "smartphone",
+  },
   location: "Dhaka, Bangladesh · Open to remote (UTC+6)",
   availability: "Open to remote roles: QA Automation, SDET, Security QA / VAPT",
   cv: "assets/Moinul_Islam_CV.pdf",
@@ -23,10 +45,10 @@ window.PORTFOLIO = {
   },
 
   stats: [
-    { value: "2021", label: "Testing professionally since" },
-    { value: "110+", label: "Mailchimp partner apps reviewed" },
-    { value: "3", label: "Companies" },
-    { value: "11", label: "Business domains" },
+    { value: "2021", icon: "calendar-check", label: "Testing professionally since" },
+    { value: "110+", icon: "app-window", label: "Mailchimp partner apps reviewed" },
+    { value: "3", icon: "building-2", label: "Companies" },
+    { value: "11", icon: "layers", label: "Business domains" },
   ],
 
   about: [
