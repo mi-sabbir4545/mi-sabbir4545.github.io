@@ -4,8 +4,15 @@
   <link href="https://moinulislam.pages.dev/blog/"/>
   <link rel="self" href="https://moinulislam.pages.dev/blog/feed.xml"/>
   <id>https://moinulislam.pages.dev/blog/</id>
-  <updated>2026-11-12T00:00:00Z</updated>
+  <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Moinul Islam</name></author>
+  <entry>
+    <title>Security Testing in Bangladesh: A Web Application Checklist</title>
+    <link href="https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/"/>
+    <id>https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>A web application security testing checklist for QA teams in Bangladesh: OTP login, access control, injection, payment logic, headers and reporting.</summary>
+  </entry>
   <entry>
     <title>JWT Testing Checklist for QA Engineers</title>
     <link href="https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/"/>
