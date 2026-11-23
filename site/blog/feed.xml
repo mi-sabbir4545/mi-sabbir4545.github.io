@@ -7,6 +7,13 @@
   <updated>2026-11-12T00:00:00Z</updated>
   <author><name>Moinul Islam</name></author>
   <entry>
+    <title>JWT Testing Checklist for QA Engineers</title>
+    <link href="https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/"/>
+    <id>https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/</id>
+    <updated>2026-11-12T00:00:00Z</updated>
+    <summary>How to test JSON Web Tokens: decode them, tamper with claims, try alg none and algorithm confusion, check expiry and audience, then automate the checks in Playwright.</summary>
+  </entry>
+  <entry>
     <title>Boundary Value Analysis Examples for QA Engineers</title>
     <link href="https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/"/>
     <id>https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/</id>
