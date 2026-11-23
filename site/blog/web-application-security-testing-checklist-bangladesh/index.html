@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Security Testing in Bangladesh: Web App Checklist | Moinul Islam</title>
+  <meta name="description" content="Security testing in Bangladesh: a web application checklist for QA teams covering login, access control, injection, payments and headers, with free tools.">
+  <meta name="author" content="Moinul Islam">
+  <meta name="theme-color" content="#fafafd">
+  <link rel="canonical" href="https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/">
+  <meta property="og:title" content="Security Testing in Bangladesh: Web App Checklist | Moinul Islam">
+  <meta property="og:description" content="Security testing in Bangladesh: a web application checklist for QA teams covering login, access control, injection, payments and headers, with free tools.">
+  <meta property="og:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Security Testing in Bangladesh: Web App Checklist | Moinul Islam">
+  <meta name="twitter:description" content="Security testing in Bangladesh: a web application checklist for QA teams covering login, access control, injection, payments and headers, with free tools.">
+  <meta name="twitter:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Security Testing in Bangladesh: A Web Application Checklist",
+  "description": "Security testing in Bangladesh: a web application checklist for QA teams covering login, access control, injection, payments and headers, with free tools.",
+  "url": "https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/",
+  "mainEntityOfPage": "https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/",
+  "datePublished": "2026-11-23",
+  "dateModified": "2026-11-23",
+  "inLanguage": "en",
+  "keywords": [
+    "security testing in Bangladesh",
+    "web application security testing",
+    "OWASP Top 10",
+    "QA security checklist",
+    "Burp Suite",
+    "OWASP ZAP"
+  ],
+  "wordCount": 1366,
+  "image": "https://moinulislam.pages.dev/assets/img/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/",
+    "jobTitle": "QA Automation & Security Testing Engineer"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/"
+  }
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" title="Moinul Islam — Blog">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img class="brand-mark" src="/assets/img/profile.webp" alt="" width="34" height="34">
+        <span class="brand-name">Moinul Islam</span>
+      </a>
+      <nav class="site-nav page-nav" aria-label="Main">
+        <a href="/">Portfolio</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="true">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+      <h1>Security Testing in Bangladesh: A Web Application Checklist</h1>
+      <p class="post-meta">By <a href="/">Moinul Islam</a> · <time datetime="2026-11-23">23 November 2026</time></p>
+
+        <p class="lead">Security testing in Bangladesh follows the same method as anywhere else: agree the scope, then test login and sessions, access control, input handling, payment logic and server configuration against the OWASP Top 10. This checklist is written for QA teams working on fintech, e-commerce and HRMS web applications who want a repeatable security pass before each release.</p>
+        <p>It uses free tools (Burp Suite Community, OWASP ZAP, browser DevTools and curl) and maps to the <a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank" rel="noopener noreferrer">OWASP Web Security Testing Guide</a>. It does not replace a full penetration test, but it catches the common, expensive mistakes early.</p>
+        <p><strong>Only test applications you're authorized to test:</strong> your own product, a staging environment you have written permission for, or a bug bounty programme whose scope includes the target. Never run these checks against someone else's live site.</p>
+
+        <h2>1. Set the scope and the test environment</h2>
+        <p>Before the first request, write down what is in scope: domains, environments, user roles and the features you will touch. Test on staging with test data. For payment flows, use the gateway's sandbox, so no real money moves. Create at least two accounts per role, because most serious bugs need a second user to prove.</p>
+        <ul>
+          <li>List every role (customer, merchant, admin, support) and what each should be allowed to do.</li>
+          <li>Keep a list of the endpoints you find while clicking through the app, from the Burp Suite or ZAP proxy history.</li>
+          <li>Agree who receives findings and how quickly they will be triaged.</li>
+        </ul>
+
+        <h2>2. Test login, OTP and sessions</h2>
+        <p>Many Bangladeshi products sign users in with a phone number and a one-time password (OTP), so test that flow as carefully as a password login.</p>
+        <ul>
+          <li><strong>Brute force:</strong> after a set number of wrong passwords or OTP attempts, does the app lock the account or slow down? Can the OTP be guessed within its lifetime?</li>
+          <li><strong>OTP handling:</strong> is the OTP single-use, short-lived and tied to one user? Does the response body leak it? Can "resend OTP" be called without limit, which costs the business money in SMS?</li>
+          <li><strong>Error messages:</strong> do "user not found" and "wrong password" look different? That lets an attacker list valid accounts.</li>
+          <li><strong>Session cookies:</strong> they should be <code>HttpOnly</code>, <code>Secure</code> and have a <code>SameSite</code> value. A new session ID should be issued after login.</li>
+          <li><strong>Logout and reset:</strong> the old session must stop working after logout and after a password change.</li>
+        </ul>
+        <p>If the app uses tokens, run the <a href="/blog/jwt-testing-checklist-for-qa-engineers/">JWT testing checklist</a> as well.</p>
+
+        <h2>3. Test access control on every object</h2>
+        <p>Broken access control is the top item in the <a href="https://owasp.org/Top10/" target="_blank" rel="noopener noreferrer">OWASP Top 10</a>, and it is the bug QA teams are best placed to find. Log in as user A, copy a request that returns A's order, invoice, payslip or wallet statement, then replay it with user B's session. If B can read or change A's data, you have an IDOR. Do the same across roles: can a customer open an admin URL by typing it?</p>
+        <p>The full method, with Burp Suite and Autorize, is in the <a href="/blog/idor-testing-checklist-for-qa-engineers/">IDOR testing checklist</a>.</p>
+
+        <h2>4. Test input handling: SQL injection and XSS</h2>
+        <p>Every field that reaches the server or comes back on a page needs a quick check: search boxes, filters, profile names, comments, and URL and header values. Use harmless probes first:</p>
+<pre tabindex="0"><code># SQL injection signal: a stray quote should not produce a database error
+GET /products?category=shoes'
+
+# Reflected XSS signal: does the marker come back unescaped in the HTML?
+GET /search?q=&lt;b&gt;probe123&lt;/b&gt;</code></pre>
+        <p>A database error, a changed result count or a marker rendered as real HTML is a finding. Confirm it, then stop. You don't need to dump data to prove the bug. The fixes are parameterized queries for SQL injection, and output encoding plus a Content Security Policy for XSS.</p>
+
+        <h2>5. Test payment and business logic</h2>
+        <p>Scanners miss logic flaws, so this section needs a person. It matters most for e-commerce checkouts, wallet top-ups and payroll or HRMS approvals, where a logic gap turns into lost money. Work in the gateway's sandbox and try these:</p>
+        <ul>
+          <li><strong>Price and quantity tampering:</strong> change the amount, use a negative quantity or switch the currency in the checkout request. The server must recompute the total itself.</li>
+          <li><strong>Gateway callback:</strong> the payment success or IPN callback must be verified on the server. Can you mark an order as paid by calling the success URL yourself, or by replaying an old callback?</li>
+          <li><strong>Double submission:</strong> send the same payment or coupon request twice at the same moment. Is it applied twice?</li>
+          <li><strong>Coupons and balances:</strong> reuse a single-use coupon, stack discounts and try to withdraw more than the balance.</li>
+          <li><strong>Workflow skipping:</strong> call the "confirm order" or "approve leave" endpoint without completing the earlier steps.</li>
+        </ul>
+
+        <h2>6. Check transport security, headers and exposed files</h2>
+        <p>These checks take minutes and often find easy wins. Start with the response headers:</p>
+<pre tabindex="0"><code>curl -sI https://staging.example.com | grep -iE "strict-transport|content-security|x-frame|x-content-type|server|x-powered-by"</code></pre>
+        <ul>
+          <li><strong>HTTPS:</strong> HTTP redirects to HTTPS, and <code>Strict-Transport-Security</code> is set.</li>
+          <li><strong>Security headers:</strong> <code>Content-Security-Policy</code>, <code>X-Content-Type-Options</code> and a framing policy (<code>X-Frame-Options</code> or <code>frame-ancestors</code>).</li>
+          <li><strong>Information leaks:</strong> version banners in <code>Server</code> or <code>X-Powered-By</code>, stack traces on error pages, and debug mode left on.</li>
+          <li><strong>Exposed files:</strong> <code>/.git/</code>, <code>.env</code>, backup files, database dumps and public admin panels.</li>
+          <li><strong>CORS:</strong> a wildcard or reflected origin on an API that uses cookies is a red flag.</li>
+        </ul>
+
+        <h2>7. Check file uploads and the API layer</h2>
+        <p>Profile pictures, document uploads and CSV imports are common in business apps. Check that the server validates the real file type and not just the extension, limits file size, and stores uploads where they cannot be executed. Then check the API behind the UI: every endpoint the mobile app uses needs the same authentication and access checks as the web pages, and responses should not return more fields than the screen shows.</p>
+
+        <h2>8. Scan, then report and retest</h2>
+        <p>Run an OWASP ZAP baseline scan against staging for the passive checks, and use the results as a to-do list, not a verdict. To run it on every pull request, see <a href="/blog/qa-automation-security-testing-ci-pipeline/">QA automation and security testing in one CI pipeline</a>.</p>
+        <p>Write each finding so a developer can reproduce it in five minutes: a title that states the impact, the exact request, the response, the affected roles and a suggested fix. Rate severity by what an attacker could actually do, then retest after the fix and add an automated regression test. If you are building these skills, the <a href="/blog/qa-automation-security-testing-career-bangladesh/">career roadmap for Bangladesh</a> suggests a practical order to learn them in.</p>
+
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Get written scope, and test on staging with test accounts and a payment sandbox.</li>
+          <li>OTP flows need the same abuse testing as passwords: guessing, reuse and unlimited resends.</li>
+          <li>Access control and payment logic cause the costliest bugs and need manual testing, not only scanners.</li>
+          <li>Check headers, error pages and exposed files, because they take minutes.</li>
+          <li>Turn each confirmed finding into an automated regression test. Reference: <a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank" rel="noopener noreferrer">OWASP WSTG</a>.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>Do I need to be a hacker to do security testing as a QA engineer?</h3>
+        <p>No. A QA engineer already knows the roles, workflows and edge cases of the product, which is most of what access-control and logic testing needs. Learn a proxy such as Burp Suite or ZAP, work through the OWASP Top 10, and practise on legal labs like PortSwigger Web Security Academy before touching real projects.</p>
+        <h3>What is the difference between security testing and penetration testing?</h3>
+        <p>Security testing is the broader activity of checking that security requirements hold, and QA teams can do it on every release. A penetration test (or VAPT) is a time-boxed, deeper engagement that tries to exploit weaknesses, usually by a specialist team. They complement each other.</p>
+        <h3>Which free tools should I start with?</h3>
+        <p>Browser DevTools and curl for the basics, Burp Suite Community Edition or OWASP ZAP as an intercepting proxy, and Postman or Playwright to turn findings into automated checks.</p>
+
+        <aside class="author-box" aria-label="About the author">
+          <p><strong>Moinul Islam</strong> is a QA automation and security testing engineer in Dhaka, Bangladesh, with nearly six years of web, mobile and API testing, building test automation frameworks and doing hands-on security testing with Burp Suite, OWASP ZAP and Kali Linux. <a href="/">See the portfolio</a> or <a href="mailto:sabbir722722@gmail.com">get in touch</a>.</p>
+        </aside>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Moinul Islam · QA Automation &amp; Security Testing Engineer, Dhaka, Bangladesh</p>
+      <p><a href="/blog/feed.xml">RSS / Atom feed</a></p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/page.js"></script>
+  <script src="/assets/js/vendor/lenis.min.js"></script>
+  <script src="/assets/js/motion.js"></script>
+</body>
+</html>
