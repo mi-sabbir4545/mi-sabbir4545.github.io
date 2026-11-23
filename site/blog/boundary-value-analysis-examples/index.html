@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Boundary Value Analysis Examples for QA Engineers | Moinul Islam</title>
+  <meta name="description" content="Boundary value analysis and equivalence partitioning with worked examples: age, password length and discount tiers, plus data-driven automated tests.">
+  <meta name="author" content="Moinul Islam">
+  <meta name="theme-color" content="#fafafd">
+  <link rel="canonical" href="https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/">
+  <meta property="og:title" content="Boundary Value Analysis Examples for QA Engineers | Moinul Islam">
+  <meta property="og:description" content="Boundary value analysis and equivalence partitioning with worked examples: age, password length and discount tiers, plus data-driven automated tests.">
+  <meta property="og:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Boundary Value Analysis Examples for QA Engineers | Moinul Islam">
+  <meta name="twitter:description" content="Boundary value analysis and equivalence partitioning with worked examples: age, password length and discount tiers, plus data-driven automated tests.">
+  <meta name="twitter:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Boundary Value Analysis Examples for QA Engineers",
+  "description": "Boundary value analysis and equivalence partitioning with worked examples: age, password length and discount tiers, plus data-driven automated tests.",
+  "url": "https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/",
+  "mainEntityOfPage": "https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/",
+  "datePublished": "2026-11-12",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "keywords": [
+    "boundary value analysis",
+    "equivalence partitioning",
+    "test design techniques",
+    "manual testing",
+    "test case design",
+    "QA"
+  ],
+  "wordCount": 1273,
+  "image": "https://moinulislam.pages.dev/assets/img/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/",
+    "jobTitle": "QA Automation & Security Testing Engineer"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/"
+  }
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" title="Moinul Islam — Blog">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img class="brand-mark" src="/assets/img/profile.webp" alt="" width="34" height="34">
+        <span class="brand-name">Moinul Islam</span>
+      </a>
+      <nav class="site-nav page-nav" aria-label="Main">
+        <a href="/">Portfolio</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="true">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+      <h1>Boundary Value Analysis Examples for QA Engineers</h1>
+      <p class="post-meta">By <a href="/">Moinul Islam</a> · <time datetime="2026-11-12">12 November 2026</time></p>
+
+        <p class="lead">Boundary value analysis (BVA) is a test design technique that picks test inputs at the edges of valid ranges, because off-by-one mistakes such as <code>&gt;</code> written instead of <code>&gt;=</code> cluster there. Equivalence partitioning (EP) comes first: it splits all possible inputs into groups that the system should treat the same way, so you test one value per group instead of hundreds.</p>
+        <p>Used together, the two techniques give you a small, defensible set of test cases for any field that has a limit. Below are three worked examples (an age field, a password length and a discount tier), a way to handle decimals, and a short data-driven test you can run in CI.</p>
+
+        <h2>1. Equivalence partitioning: group the inputs</h2>
+        <p>The idea is simple: if the requirement says ages 18 to 60 are accepted, then 25, 31 and 44 are all expected to behave identically. Testing all three adds cost and almost no information. Divide the input space into partitions, then test one representative from each.</p>
+        <p>For a registration form that accepts an integer age from 18 to 60, the partitions are:</p>
+        <ul>
+          <li><strong>Invalid, too low:</strong> 17 and below (including 0 and negative numbers)</li>
+          <li><strong>Valid:</strong> 18 to 60</li>
+          <li><strong>Invalid, too high:</strong> 61 and above</li>
+          <li><strong>Invalid, wrong type:</strong> empty, letters, symbols, decimals such as 18.5</li>
+        </ul>
+        <p>Four partitions means four test cases at minimum, for example <code>10</code>, <code>35</code>, <code>75</code> and <code>"abc"</code>. That already beats a dozen random guesses, because every case has a reason.</p>
+
+        <h2>2. Boundary value analysis: test the edges</h2>
+        <p>Developers rarely get the middle of a range wrong. They get the edges wrong: <code>age &gt; 18</code> instead of <code>age &gt;= 18</code>, or a database column that is one character too short. BVA adds test values on and around each boundary of a partition.</p>
+        <p>For the 18 to 60 range there are two boundaries (the lower and upper limits), so the values are:</p>
+        <ul>
+          <li><strong>Two-value BVA:</strong> 17, 18, 60, 61 (each boundary and its nearest neighbour in the other partition)</li>
+          <li><strong>Three-value BVA:</strong> 17, 18, 19, 59, 60, 61 (also the value just inside the valid range)</li>
+        </ul>
+        <p>Two-value BVA is the usual starting point and is what the ISTQB syllabus describes first. Move to three-value BVA when the code around the boundary is complex or the feature is high risk, such as money or access limits.</p>
+
+        <h2>3. Worked example: password length</h2>
+        <p>Requirement: a password must be 8 to 64 characters. The partitions are shorter than 8 (invalid), 8 to 64 (valid) and longer than 64 (invalid). The boundary values are lengths 7, 8, 64 and 65.</p>
+        <ul>
+          <li>7 characters: rejected, with a clear message</li>
+          <li>8 characters: accepted</li>
+          <li>64 characters: accepted</li>
+          <li>65 characters: rejected, or at least not silently truncated</li>
+        </ul>
+        <p>Add the partition that people forget: the empty string, and a very long input such as 10,000 characters to see how the server copes. Also watch for the classic bug where the form says 8 to 64 but the API or database allows a different range. Test the UI and the API separately, because they often enforce different limits.</p>
+
+        <h2>4. Worked example: discount tiers</h2>
+        <p>Requirement for a checkout: orders under 100.00 get no discount, orders from 100.00 to 499.99 get 5%, and orders of 500.00 or more get 10%. There are two boundaries: 100.00 and 500.00.</p>
+        <p>With money, the "nearest value" is the smallest currency unit, 0.01. So the boundary values are:</p>
+        <ul>
+          <li>99.99 → no discount</li>
+          <li>100.00 → 5%</li>
+          <li>499.99 → 5%</li>
+          <li>500.00 → 10%</li>
+        </ul>
+        <p>Then check the edges of the whole range too: 0.00, a negative amount, and the largest order the system supports. Add one more case that is easy to miss: an order that reaches 100.00 only after a coupon or shipping is applied. The boundary depends on which amount the rule is evaluated against (before or after tax and shipping), so ask the product owner and write it into the test case.</p>
+
+        <h2>5. Turn the table into automated tests</h2>
+        <p>Boundary tests are a natural fit for data-driven automation, since the logic is identical and only the input and expected result change. With <a href="https://playwright.dev/docs/test-parameterize" target="_blank" rel="noopener noreferrer">Playwright's parameterized tests</a>, a list of cases becomes a list of test results (the endpoint here is illustrative):</p>
+<pre tabindex="0"><code>const cases = [
+  { age: 17, ok: false },
+  { age: 18, ok: true },
+  { age: 60, ok: true },
+  { age: 61, ok: false },
+];
+
+for (const { age, ok } of cases) {
+  test(`age ${age} is ${ok ? "accepted" : "rejected"}`, async ({ request }) =&gt; {
+    const res = await request.post("/api/register", { data: { age } });
+    expect(res.ok()).toBe(ok);
+  });
+}</code></pre>
+        <p>Each failing case names the exact value that broke, which makes the bug report almost write itself. Run the file with the rest of your suite in the pipeline described in <a href="/blog/qa-automation-security-testing-ci-pipeline/">QA automation and security testing in one CI pipeline</a>, so a changed limit fails the build instead of reaching users.</p>
+
+        <h2>6. Common mistakes</h2>
+        <ul>
+          <li><strong>Testing only the valid middle.</strong> Values like 25 or 30 almost never find bugs. The invalid partitions and the edges do.</li>
+          <li><strong>Guessing the boundary.</strong> If the requirement doesn't state whether a limit is inclusive, ask. A vague requirement is itself a defect worth logging.</li>
+          <li><strong>Forgetting the layers.</strong> Check the same boundary in the UI, the API and the database. Client-side validation can be bypassed, and server-side limits can differ.</li>
+          <li><strong>Ignoring non-numeric boundaries.</strong> Dates (the last day of the month, 29 February), list sizes (zero, one, maximum items), file sizes and string lengths all have edges.</li>
+          <li><strong>Multiple fields at once.</strong> BVA treats each input on its own. When two fields interact, add decision tables or pairwise combinations on top.</li>
+        </ul>
+        <p>The same edge-first thinking carries over to security testing, where limits and IDs are probed on purpose. For an example, see the <a href="/blog/idor-testing-checklist-for-qa-engineers/">IDOR testing checklist for QA engineers</a>. And if you are building up your fundamentals, test design techniques are stage one in the <a href="/blog/qa-automation-security-testing-career-bangladesh/">QA automation and security testing career roadmap</a>.</p>
+
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Equivalence partitioning groups inputs that behave the same, so you test one value per group.</li>
+          <li>Boundary value analysis adds the values on and next to each boundary, where off-by-one defects live.</li>
+          <li>Two-value BVA (17, 18, 60, 61) is the baseline, and three-value BVA adds extra coverage for risky features.</li>
+          <li>For decimals and money, the step to the next value is the smallest unit, such as 0.01.</li>
+          <li>Always include invalid partitions: empty, wrong type, negative and extremely large inputs.</li>
+          <li>Put boundary cases in a data table and automate them so every limit change is caught in CI.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>What is the difference between boundary value analysis and equivalence partitioning?</h3>
+        <p>Equivalence partitioning divides inputs into groups that should behave the same and picks one value per group. Boundary value analysis then adds the values at the edges of those groups. EP reduces how many cases you need, and BVA makes sure the riskiest ones are included.</p>
+        <h3>How many test cases does boundary value analysis give for one range?</h3>
+        <p>A single range with a lower and an upper limit gives four test values with two-value BVA (for 18 to 60: 17, 18, 60 and 61) and six with three-value BVA (17, 18, 19, 59, 60 and 61). Add one representative from the valid middle only if you want a baseline pass.</p>
+        <h3>Can boundary value analysis be used for non-numeric inputs?</h3>
+        <p>Yes. Anything with an order has boundaries: dates, string and file lengths, list sizes, time windows and quantities. For unordered inputs such as a country dropdown, use equivalence partitioning only. The <a href="https://www.istqb.org/" target="_blank" rel="noopener noreferrer">ISTQB</a> Foundation Level syllabus covers both techniques if you want the formal definitions.</p>
+
+        <aside class="author-box" aria-label="About the author">
+          <p><strong>Moinul Islam</strong> is a QA automation and security testing engineer in Dhaka, Bangladesh, with nearly six years of web, mobile and API testing. He builds test automation frameworks and does hands-on security testing with Burp Suite, OWASP ZAP and Kali Linux. <a href="/">See his portfolio</a> or <a href="mailto:sabbir722722@gmail.com">get in touch</a>.</p>
+        </aside>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Moinul Islam · QA Automation &amp; Security Testing Engineer, Dhaka, Bangladesh</p>
+      <p><a href="/blog/feed.xml">RSS / Atom feed</a></p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/page.js"></script>
+  <script src="/assets/js/vendor/lenis.min.js"></script>
+  <script src="/assets/js/motion.js"></script>
+</body>
+</html>

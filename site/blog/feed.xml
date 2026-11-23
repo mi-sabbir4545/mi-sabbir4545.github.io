@@ -4,8 +4,15 @@
   <link href="https://moinulislam.pages.dev/blog/"/>
   <link rel="self" href="https://moinulislam.pages.dev/blog/feed.xml"/>
   <id>https://moinulislam.pages.dev/blog/</id>
-  <updated>2026-10-04T00:00:00Z</updated>
+  <updated>2026-11-12T00:00:00Z</updated>
   <author><name>Moinul Islam</name></author>
+  <entry>
+    <title>Boundary Value Analysis Examples for QA Engineers</title>
+    <link href="https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/"/>
+    <id>https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/</id>
+    <updated>2026-11-12T00:00:00Z</updated>
+    <summary>Boundary value analysis and equivalence partitioning with worked examples (age, password length, discount tiers), plus data-driven automated boundary tests.</summary>
+  </entry>
   <entry>
     <title>QA Automation and Security Testing in One CI Pipeline</title>
     <link href="https://moinulislam.pages.dev/blog/qa-automation-security-testing-ci-pipeline/"/>
