@@ -27,7 +27,7 @@
 - Security testing: Burp Suite, OWASP ZAP, Nmap, Kali Linux, OWASP Top 10, OWASP API Security Top 10, SQL injection, XSS, IDOR / access control, JWT, session & authentication testing, VAPT, bug bounty reporting
 - AI-assisted testing: Claude Code, Command Code, Playwright MCP (AI-driven browser automation), Google ARTEMIS (AI-driven Android test automation via MCP with Logcat and screenshot capture), AI-assisted test design, prompt engineering, Hermes Agent (Nous Research), Telegram bot
 - Languages & databases: Python, Java, JavaScript, SQL (MySQL) for database testing & data validation, Linux (Ubuntu, Kali) command line
-- CI/CD: Jenkins, GitHub Actions, Docker (containerised test runs), Git / GitHub, Maven, Gradle
+- CI/CD: Jenkins, GitHub Actions, Docker (containerised test runs), Git / GitHub, Maven, Gradle, Next.js deployment with GitHub Actions over SSH to a cPanel server, staging and production environments
 - Tools: Jira, ClickUp, Bugzilla, Trello, Figma (UI validation)
 
 ## Experience
