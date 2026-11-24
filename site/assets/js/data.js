@@ -74,7 +74,7 @@ window.PORTFOLIO = {
     { group: "Security Testing", icon: "shield-check", items: ["Burp Suite", "OWASP ZAP", "Nmap", "Kali Linux", "OWASP Top 10", "OWASP API Security Top 10", "SQL injection", "XSS", "IDOR / access control", "JWT & session testing", "VAPT", "Bug bounty reporting"] },
     { group: "AI-Assisted Testing", icon: "sparkles", items: ["Claude Code", "Command Code", "Playwright MCP", "Google ARTEMIS (Android, via MCP)", "AI-assisted test design", "Prompt engineering", "Hermes Agent", "Telegram bot"] },
     { group: "Linux & Scripting", icon: "terminal", items: ["Linux (Ubuntu, Kali)", "Command line", "Python", "Java", "JavaScript", "SQL (MySQL) & database testing"] },
-    { group: "CI/CD & DevOps", icon: "git-branch", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle"] },
+    { group: "CI/CD & DevOps", icon: "git-branch", items: ["Jenkins", "GitHub Actions", "Docker", "Git / GitHub", "Maven", "Gradle", "Next.js deployment", "cPanel / SSH deploys", "Staging & production environments"] },
     { group: "Tools", icon: "wrench", items: ["Jira", "ClickUp", "Bugzilla", "Trello", "Figma (UI validation)"] },
   ],
 
@@ -152,6 +152,19 @@ window.PORTFOLIO = {
         "API regression with Postman/Newman and Rest Assured",
       ],
       stack: ["Selenium", "Java", "TestNG", "Jenkins"],
+      link: null,
+    },
+    {
+      title: "Next.js App — CI/CD to Staging & Production",
+      kind: "DevOps · CI/CD",
+      summary:
+        "Automated delivery for a Next.js application: GitHub Actions builds and tests every change, then deploys over SSH to a cPanel server with separate staging and production environments.",
+      points: [
+        "GitHub Actions pipeline: install, lint, build and test on every push",
+        "SSH deployment to a cPanel server, with credentials kept in encrypted secrets",
+        "Staging first for verification, then promotion to production",
+      ],
+      stack: ["Next.js", "GitHub Actions", "SSH", "cPanel"],
       link: null,
     },
     {
