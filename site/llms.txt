@@ -45,6 +45,7 @@
 
 ## Articles
 
+- API Security Testing Checklist for QA Engineers: https://moinulislam.pages.dev/blog/api-security-testing-checklist/
 - Security Testing in Bangladesh: A Web Application Checklist: https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/
 - JWT Testing Checklist for QA Engineers: https://moinulislam.pages.dev/blog/jwt-testing-checklist-for-qa-engineers/
 - Boundary Value Analysis Examples for QA Engineers: https://moinulislam.pages.dev/blog/boundary-value-analysis-examples/
