@@ -4,8 +4,15 @@
   <link href="https://moinulislam.pages.dev/blog/"/>
   <link rel="self" href="https://moinulislam.pages.dev/blog/feed.xml"/>
   <id>https://moinulislam.pages.dev/blog/</id>
-  <updated>2026-11-23T00:00:00Z</updated>
+  <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Moinul Islam</name></author>
+  <entry>
+    <title>API Security Testing Checklist for QA Engineers</title>
+    <link href="https://moinulislam.pages.dev/blog/api-security-testing-checklist/"/>
+    <id>https://moinulislam.pages.dev/blog/api-security-testing-checklist/</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>How to test API security against the OWASP API Top 10: object and function-level access, mass assignment, data exposure, rate limits and Playwright regression tests.</summary>
+  </entry>
   <entry>
     <title>Security Testing in Bangladesh: A Web Application Checklist</title>
     <link href="https://moinulislam.pages.dev/blog/web-application-security-testing-checklist-bangladesh/"/>

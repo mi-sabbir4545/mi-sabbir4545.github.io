@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>API Security Testing Checklist for QA Engineers | Moinul Islam</title>
+  <meta name="description" content="An API security testing checklist for QA engineers: test object access, mass assignment, rate limits and data exposure against the OWASP API Top 10.">
+  <meta name="author" content="Moinul Islam">
+  <meta name="theme-color" content="#fafafd">
+  <link rel="canonical" href="https://moinulislam.pages.dev/blog/api-security-testing-checklist/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://moinulislam.pages.dev/blog/api-security-testing-checklist/">
+  <meta property="og:title" content="API Security Testing Checklist for QA Engineers | Moinul Islam">
+  <meta property="og:description" content="An API security testing checklist for QA engineers: test object access, mass assignment, rate limits and data exposure against the OWASP API Top 10.">
+  <meta property="og:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="API Security Testing Checklist for QA Engineers | Moinul Islam">
+  <meta name="twitter:description" content="An API security testing checklist for QA engineers: test object access, mass assignment, rate limits and data exposure against the OWASP API Top 10.">
+  <meta name="twitter:image" content="https://moinulislam.pages.dev/assets/img/og-image.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "API Security Testing Checklist for QA Engineers",
+  "description": "An API security testing checklist for QA engineers: test object access, mass assignment, rate limits and data exposure against the OWASP API Top 10.",
+  "url": "https://moinulislam.pages.dev/blog/api-security-testing-checklist/",
+  "mainEntityOfPage": "https://moinulislam.pages.dev/blog/api-security-testing-checklist/",
+  "datePublished": "2026-11-26",
+  "dateModified": "2026-11-26",
+  "inLanguage": "en",
+  "keywords": [
+    "API security testing",
+    "OWASP API Security Top 10",
+    "BOLA",
+    "mass assignment",
+    "rate limiting",
+    "Postman",
+    "Playwright",
+    "QA"
+  ],
+  "wordCount": 1339,
+  "image": "https://moinulislam.pages.dev/assets/img/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/",
+    "jobTitle": "QA Automation & Security Testing Engineer"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Moinul Islam",
+    "url": "https://moinulislam.pages.dev/"
+  }
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon-96.png" type="image/png" sizes="96x96">
+  <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" href="/blog/feed.xml" title="Moinul Islam — Blog">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script src="/assets/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img class="brand-mark" src="/assets/img/profile.webp" alt="" width="34" height="34">
+        <span class="brand-name">Moinul Islam</span>
+      </a>
+      <nav class="site-nav page-nav" aria-label="Main">
+        <a href="/">Portfolio</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="true">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="article">
+    <article class="container">
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></p>
+      <h1>API Security Testing Checklist for QA Engineers</h1>
+      <p class="post-meta">By <a href="/">Moinul Islam</a> · <time datetime="2026-11-26">26 November 2026</time></p>
+
+        <p class="lead">To test API security as a QA engineer, send every endpoint the requests it should refuse: another user's object ID, an admin-only function called by a normal user, extra fields in the body, and hundreds of requests in a row. If the API answers any of them with <code>200</code>, you have found a defect. This checklist follows the OWASP API Security Top 10 and shows how to test each item with Postman or Burp Suite and automate it.</p>
+        <p>Functional tests prove that the API does what it should. Security tests prove that it does <em>only</em> what it should. The <a href="https://owasp.org/API-Security/editions/2023/en/0x11-t10/" target="_blank" rel="noopener noreferrer">OWASP API Security Top 10 (2023)</a> is a good map of where to look.</p>
+        <p><strong>Only test APIs you're authorized to test:</strong> your own product, a staging environment you have permission for, or a bug bounty programme whose scope includes the target. Never run these checks against production data you don't own.</p>
+
+        <h2>1. Build an inventory of endpoints first</h2>
+        <p>You can't test what you don't know about. Start from the OpenAPI/Swagger file or a Postman collection, then compare it with the traffic your web and mobile apps really send (capture it through Burp Suite or browser dev tools). Look for:</p>
+        <ul>
+          <li>Endpoints in traffic but missing from the documentation.</li>
+          <li>Old versions still running, such as <code>/api/v1/</code> beside <code>/api/v3/</code>.</li>
+          <li>Debug, internal or admin routes that a public client can reach.</li>
+        </ul>
+        <p>This covers API9:2023, Improper Inventory Management. Old versions often lack the checks the new one has, so run every test below against each live version.</p>
+
+        <h2>2. Test object-level authorization (BOLA)</h2>
+        <p>Broken Object Level Authorization is number one in the list. Log in as two ordinary users, A and B. Request B's object while holding A's token: <code>GET /api/orders/{B's id}</code>, then try <code>PUT</code> and <code>DELETE</code> as well. Expect <code>403</code> or <code>404</code>. Test IDs in the path, query string, JSON body and headers. The full method, including Autorize and regression tests, is in my <a href="/blog/idor-testing-checklist-for-qa-engineers/">IDOR testing checklist</a>.</p>
+
+        <h2>3. Test authentication and tokens</h2>
+        <p>Call each protected endpoint with no token, an expired token, a token for a deleted user and a malformed token. All must return <code>401</code>. Then check how the token itself is built and checked: signature, algorithm, expiry, audience. The <a href="/blog/jwt-testing-checklist-for-qa-engineers/">JWT testing checklist</a> covers this in detail. Also try login and password-reset endpoints for unlimited guessing, as described in step 7.</p>
+
+        <h2>4. Test function-level authorization</h2>
+        <p>Object-level checks ask "is this your record?". Function-level checks ask "are you allowed to call this action at all?". Take a normal user's token and call the routes an admin or manager would use: user management, refunds, exports, configuration. Change the HTTP method too, because a <code>GET</code> may be protected while a <code>DELETE</code> on the same path is not.</p>
+<pre tabindex="0"><code>curl -i -X DELETE https://staging.example.com/api/admin/users/1042 \
+  -H "Authorization: Bearer $NORMAL_USER_TOKEN"
+# expected: 403, and the user still exists afterwards</code></pre>
+
+        <h2>5. Test for mass assignment and excessive data exposure</h2>
+        <p>Two problems share one cause: the API trusts its data model too much.</p>
+        <ul>
+          <li><strong>Mass assignment:</strong> when creating or updating a record, add fields the client should never control, such as <code>"role": "admin"</code>, <code>"isVerified": true</code>, <code>"balance": 99999</code> or <code>"ownerId"</code>. Then read the record back. If the value changed, the API binds request fields straight to the model.</li>
+          <li><strong>Excessive data exposure:</strong> read the whole JSON response, not just what the screen shows. Look for password hashes, tokens, internal IDs, other users' emails or phone numbers, and fields the UI quietly hides.</li>
+        </ul>
+        <p>These map to API3:2023, Broken Object Property Level Authorization. A good fix is an allow-list of fields per endpoint, for both input and output.</p>
+
+        <h2>6. Fuzz inputs and validate types</h2>
+        <p>Send values the developer didn't plan for: strings where numbers are expected, negative or huge numbers, empty arrays, deeply nested JSON, very long strings and special characters. Use boundary values from my <a href="/blog/boundary-value-analysis-examples/">boundary value analysis examples</a> to choose them. Expect a clean <code>400</code> or <code>422</code> with a short message, never a <code>500</code> and never a stack trace. Also check that quotes and SQL or script payloads in parameters don't change behaviour (SQL injection, XSS), and that URL-fetching parameters, like an image URL or webhook address, can't be pointed at internal addresses (SSRF).</p>
+
+        <h2>7. Test rate limits and resource consumption</h2>
+        <p>API4:2023, Unrestricted Resource Consumption, is easy to forget because nothing "breaks" in a normal test. Check these on staging:</p>
+        <ul>
+          <li>Login, OTP and password-reset endpoints: after several wrong attempts, do you get <code>429</code> or a lockout?</li>
+          <li>List endpoints: does <code>?limit=1000000</code> return everything? A sensible maximum page size should be enforced.</li>
+          <li>Expensive operations such as export, search and file upload: is there a size limit, a timeout and a per-user quota?</li>
+        </ul>
+        <p>You can script the burst with k6 and use a few dozen requests, enough to see whether a limit exists without stressing the service.</p>
+<pre tabindex="0"><code>import http from "k6/http";
+import { check } from "k6";
+
+export const options = { vus: 1, iterations: 30 };
+
+export default function () {
+  const res = http.post(`${__ENV.BASE_URL}/api/login`,
+    JSON.stringify({ email: "qa@example.com", password: "wrong" }),
+    { headers: { "Content-Type": "application/json" } });
+  check(res, { "throttled at some point": (r) => r.status === 429 });
+}</code></pre>
+        <p>The <a href="https://k6.io/docs/" target="_blank" rel="noopener noreferrer">k6 documentation</a> explains how to run it and read the results.</p>
+
+        <h2>8. Check configuration, headers and errors</h2>
+        <ul>
+          <li><strong>HTTPS only:</strong> plain HTTP must redirect or be refused, and tokens must never appear in URLs.</li>
+          <li><strong>CORS:</strong> <code>Access-Control-Allow-Origin: *</code> together with credentials, or an origin that is simply reflected back, is a defect.</li>
+          <li><strong>Headers:</strong> <code>Cache-Control: no-store</code> on sensitive responses, <code>X-Content-Type-Options: nosniff</code>, and no version banners in <code>Server</code> or <code>X-Powered-By</code>.</li>
+          <li><strong>Errors:</strong> no stack traces, SQL errors or file paths in responses.</li>
+          <li><strong>Unused methods:</strong> send <code>OPTIONS</code>, <code>TRACE</code> and <code>PUT</code> to read-only routes.</li>
+        </ul>
+
+        <h2>9. Automate the checks in Playwright</h2>
+        <p>Every confirmed finding should become a regression test. Playwright's <a href="https://playwright.dev/docs/api-testing" target="_blank" rel="noopener noreferrer">API testing</a> support is enough:</p>
+<pre tabindex="0"><code>import { test, expect } from "@playwright/test";
+
+test("user A cannot read user B's order", async ({ request }) => {
+  const res = await request.get(`/api/orders/${fixtures.userB.orderId}`, {
+    headers: { Authorization: `Bearer ${fixtures.userA.token}` },
+  });
+  expect([403, 404]).toContain(res.status());
+});
+
+test("role cannot be set through mass assignment", async ({ request }) => {
+  await request.patch("/api/profile", {
+    headers: { Authorization: `Bearer ${fixtures.userA.token}` },
+    data: { displayName: "QA", role: "admin" },
+  });
+  const me = await request.get("/api/profile", {
+    headers: { Authorization: `Bearer ${fixtures.userA.token}` },
+  });
+  expect((await me.json()).role).toBe("user");
+});</code></pre>
+        <p>Run them in the same pipeline as your functional tests. The setup is described in <a href="/blog/qa-automation-security-testing-ci-pipeline/">QA automation and security testing in one CI pipeline</a>.</p>
+
+        <h2>10. Report API findings so they get fixed</h2>
+        <ul>
+          <li><strong>Title:</strong> state the effect, for example "A normal user can read any customer's order by changing the ID".</li>
+          <li><strong>Steps:</strong> the exact request, the token's role, the response status and the relevant part of the body. A copy-paste <code>curl</code> command helps the developer reproduce it in seconds.</li>
+          <li><strong>Impact:</strong> what data or action an attacker could reach, and whether it works on every record or only some.</li>
+          <li><strong>Fix and retest:</strong> suggest the server-side check that is missing (ownership check, role check, field allow-list, rate limit), then rerun the automated test once the fix is deployed.</li>
+        </ul>
+
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Test what the API should refuse, not only what it should accept.</li>
+          <li>Use two normal users to check object access, and a normal user against admin functions.</li>
+          <li>Add unexpected fields to requests, and read full responses for data the UI hides.</li>
+          <li>Run every test on every live API version and on undocumented endpoints.</li>
+          <li>Check rate limits, page sizes and upload limits, since resource abuse rarely shows up in functional tests.</li>
+          <li>Turn each confirmed finding into an automated test so it stays fixed.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>What is the difference between API testing and API security testing?</h3>
+        <p>API testing checks that endpoints return the right data for valid requests. API security testing sends invalid, unauthorized and abusive requests to confirm the API refuses them. Both use the same tools, such as Postman or Playwright, but security tests focus on who is calling, what they are allowed to do and how much they can ask for.</p>
+        <h3>Which tools do I need for API security testing?</h3>
+        <p>Postman or Playwright for repeatable requests, Burp Suite or OWASP ZAP to capture and modify traffic, Autorize for automated access-control comparison, and k6 for light rate-limit checks. All of them are free or have a free edition.</p>
+        <h3>Can a QA engineer do API security testing without a security background?</h3>
+        <p>Yes. Most of the OWASP API Top 10 is about authorization, validation and limits, which are things QA already tests. Start with BOLA and function-level checks, learn the OWASP list, and practise on intentionally vulnerable apps such as OWASP Juice Shop or crAPI before testing real systems.</p>
+
+        <aside class="author-box" aria-label="About the author">
+          <p><strong>Moinul Islam</strong> is a QA automation and security testing engineer in Dhaka, Bangladesh, with nearly six years of web, mobile and API testing, building test automation frameworks and doing hands-on security testing with Burp Suite, OWASP ZAP and Kali Linux. <a href="/">See the portfolio</a> or <a href="mailto:sabbir722722@gmail.com">get in touch</a>.</p>
+        </aside>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Moinul Islam · QA Automation &amp; Security Testing Engineer, Dhaka, Bangladesh</p>
+      <p><a href="/blog/feed.xml">RSS / Atom feed</a></p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/page.js"></script>
+  <script src="/assets/js/vendor/lenis.min.js"></script>
+  <script src="/assets/js/motion.js"></script>
+</body>
+</html>
